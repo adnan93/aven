@@ -1,0 +1,224 @@
+<template>
+  <v-app class="home" style="font-family: IRYekan">
+    <b-row dir="rtl">
+      <b-navbar toggleable="lg" type="dark" variant="dark">
+        <div>
+          <!-- Just an image -->
+          <b-navbar variant="faded" type="light">
+            <b-navbar-brand class="mr-15" href="/">
+              <img
+                class="mt-0 mb-0 pt-0 pb-0"
+                width="55px"
+                height="55px"
+                src="@/assets/talagram.png"
+                alt="طلاگرام"
+              />
+            </b-navbar-brand>
+          </b-navbar>
+        </div>
+        <b-navbar-brand>
+          <router-link to="/">آوین</router-link>
+        </b-navbar-brand>
+
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+        <b-collapse class="mr-15" id="nav-collapse" is-nav>
+          <b-navbar-nav>
+            <b-nav-item class="ml-2" href="#">
+              <h6>
+                <b style="color: #bea44d"> </b>
+              </h6>
+            </b-nav-item>
+
+              <b-nav-item class="ml-2" href="/Announcement">
+              <h6><b style="color: #bea44d"> صفحه اصلى </b></h6>
+            </b-nav-item>
+
+           
+
+          
+
+            <b-nav-item class="ml-2" @click="checkLogout()">
+              <h6><b style="color: #bea44d">خروج </b></h6>
+            </b-nav-item>
+
+            <!-- <b-nav-item class="ml-2" href="#">
+              <h6><b style="color: #bea44d"> اخبار توليد و تجارت </b></h6>
+            </b-nav-item>
+
+            <b-nav-item class="ml-2" href="#">
+              <h6><b style="color: #bea44d"> اخبار اقتصادی </b></h6>
+            </b-nav-item> -->
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
+
+      <!-- add new -->
+      <div>
+        <b-modal
+          v-model="showCreateModal"
+          dir="rtl"
+          id="modal-center"
+          title=" خروج"
+          :header-bg-variant="headerBgVariant"
+          :header-text-variant="headerTextVariant"
+        >
+          <h3>آیا از خروج مطمئن هستید ؟</h3>
+          <template #modal-footer>
+            <div class="w-100">
+              <v-btn
+                class="select2"
+                color="#bea44d"
+                elevation="3"
+                rounded
+                larg
+                outlined
+                @click="closeCreateModal"
+                >انصراف
+              </v-btn>
+
+              <v-btn
+                class="btnsize"
+                color="#bea44d"
+                elevation="5"
+                rounded
+                large
+                @click="logout()"
+              >
+                بلی
+              </v-btn>
+            </div>
+          </template>
+        </b-modal>
+      </div>
+
+      <v-snackbar v-model="snackbarGreen" color="green" dir="rtl">
+        {{ text }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="dark"
+            rounded
+            v-bind="attrs"
+            text
+            @click="snackbarGreen = false"
+          >
+            x
+          </v-btn>
+        </template>
+      </v-snackbar>
+
+      <router-view class="home" />
+    </b-row>
+  </v-app>
+</template>
+ 
+ 
+ 
+ <script>
+export default {
+  data() {
+    return {
+      token: localStorage.getItem("token"),
+      show: true,
+      //logout
+      showCreateModal: false,
+
+      //modal
+      headerBgVariant: "dark",
+      headerTextVariant: "light",
+
+      //snachbar
+      text: "با موفقیت خارج شدید",
+      snackbarGreen: false,
+    };
+  },
+  created() {
+    // console.log("login..", this.token)
+  },
+  methods: {
+    checkLogout() {
+      this.openCreateModal();
+    },
+
+    logout() {
+      localStorage.removeItem("token");
+      if (this.token) {
+        localStorage.removeItem("token");
+      }
+      this.closeCreateModal();
+      this.$router.push({ path: "/" });
+      this.snackbarGreen = true;
+    },
+
+    showBtn() {
+      if (this.token) {
+        return true;
+      } else return false;
+    },
+
+    openCreateModal() {
+      this.showCreateModal = true;
+    },
+
+    closeCreateModal() {
+      this.showCreateModal = false;
+    },
+  },
+};
+</script>
+ 
+ 
+<style scoped lang="scss">
+@font-face {
+  font-family: "IRYekan";
+  src: local("IRYekan"), url(./font/IRYekan.ttf) format("truetype");
+}
+.chart {
+  position: absolute;
+  width: 100%;
+  height: 300px;
+}
+.test {
+  text-align: right !important;
+  margin: 0 px;
+  padding-bottom: 0% !important;
+}
+.test1 {
+  margin-bottom: 0% !important;
+}
+.hobabptn :hover {
+  background-color: none !important;
+}
+p {
+  padding: 0%;
+  margin: 0%;
+  margin-bottom: 0% !important;
+}
+.background {
+  margin: 0% !important;
+  padding: 0% !important;
+  background-color: #f0f0f5;
+  width: 7.8rem;
+}
+
+a:link {
+  text-decoration: none;
+  background-color: none !important;
+}
+
+a {
+  color: white !important;
+}
+
+.home {
+  // background-color: #ffffff80;
+
+  //  background-color:rgb(240, 232, 232);
+  background-color: rgb(243, 240, 213);
+}
+
+.bg {
+  background-color: rgb(223, 221, 221);
+}
+</style>
