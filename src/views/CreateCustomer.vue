@@ -104,6 +104,20 @@
               "
               >ثبت
             </v-btn>
+
+            <v-btn
+              class="btnsize ml-1"
+              color="#bea44d"
+              elevation="5"
+              rounded
+              x-large
+              @click="goBack()"
+              type="submit"
+              variant="primary"
+              :loading="loadingbtn"
+              
+              >بازگشت
+            </v-btn>
           </b-form>
         </b-container>
       </b-col>
@@ -123,7 +137,8 @@ export default {
       //validation
       checkMelliCode: "",
       checkPhone: "",
-            MobileStatus: false,
+            MobileStatus: "",
+            notVaildCode: "",
 
 
       melliRules: {
@@ -225,7 +240,18 @@ export default {
           this.errors.push(e);
         });
     },
+
+    goBack(){
+      this.$router.push({ path: "/Customers" });
+
+    }
   },
+  created(){
+     if (!window.location.hash) {
+      window.location = window.location + "#loaded";
+      window.location.reload();
+    }
+  }
 };
 </script>
 

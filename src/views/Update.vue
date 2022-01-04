@@ -431,6 +431,7 @@ export default {
 
   methods: {
     async getImg() {
+
       let res = await axios.get(
         `http://localhost:8080/api/Customer/GetPictureFile/${this.imgId}`,
         this.imgId,
@@ -440,7 +441,9 @@ export default {
           },
         }
       );
+      
       console.log("img is: ", res.data);
+
     },
     async bgSend() {
       this.form.Base64File = this.bg64;

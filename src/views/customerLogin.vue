@@ -55,7 +55,7 @@
                 </v-btn>
 
                 <a href="/ForgotPassword" style="text-decoration: none">
-                  <h8> رمز عبور خود را فراموش کردید؟ </h8>
+                  <h6> رمز عبور خود را فراموش کردید؟ </h6>
                 </a>
               </b-form>
             </b-card>

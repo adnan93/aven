@@ -14,7 +14,7 @@
             <b-card class="mt-3" border-variant="dark">
               <template #header>
                 <div style="text-align: center">
-                  <p style="color: black" class="mb-0">ورود </p>
+                  <p style="color: black" class="mb-0">ورود</p>
                 </div>
               </template>
 
@@ -41,22 +41,23 @@
                 ></v-text-field>
 
                 <br />
+                <div class="container">
+                  <v-btn
+                    class="btnsize ml-1"
+                    color="#bea44d"
+                    elevation="5"
+                    rounded
+                    large
+                    type="submit"
+                    variant="primary"
+                    :loading="loadingbtn"
+                    >ورود
+                  </v-btn>
 
-                <v-btn
-                  class="btnsize ml-1"
-                  color="#bea44d"
-                  elevation="5"
-                  rounded
-                  large
-                  type="submit"
-                  variant="primary"
-                  :loading="loadingbtn"
-                  >ورود
-                </v-btn>
-
-                <a href="/ForgotPassword" style="text-decoration: none">
-                  <h8> رمز عبور خود را فراموش کردید؟ </h8>
-                </a>
+                  <a href="/ForgotPassword" style="text-decoration: none">
+                    رمز عبور خود را فراموش کردید؟
+                  </a>
+                </div>
               </b-form>
             </b-card>
           </div>
@@ -113,7 +114,12 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Login",
-  computed: mapGetters(["getToken", "getMessage", "getMessageType" ,"getIsAdmin"]),
+  computed: mapGetters([
+    "getToken",
+    "getMessage",
+    "getMessageType",
+    "getIsAdmin",
+  ]),
 
   components: {},
 
@@ -155,20 +161,16 @@ export default {
       await this.CustomerLogIn(this.form);
 
       this.text = await this.getMessage;
+      this.IsAdmin = await this.getIsAdmin;
 
-      if ((await this.getMessageType) == 1) {
+      if ((await this.getMessageType) == 1 && this.IsAdmin) {
         this.snackColor = "green";
 
-            this.IsAdmin = await this.getIsAdmin;
-
-
-          //  console.log("IsssAdmin", this.getIsAdmin);
-
-
+        //  console.log("IsssAdmin", this.getIsAdmin);
 
         this.$router.push({ path: "/Announcement" });
       } else {
-        this.snackColor = "red";
+        this.$router.push({ path: "/AnnouCustomer" });
       }
       this.snackbarGreen = true;
       this.loadingbtn = false;
@@ -178,6 +180,11 @@ export default {
   async created() {
     //date
     this.today = new Date().toLocaleDateString("fa-IR");
+
+    if (!window.location.hash) {
+      window.location = window.location + "#loaded";
+      window.location.reload();
+    }
   },
 };
 </script>

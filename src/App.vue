@@ -30,16 +30,12 @@
               </h6>
             </b-nav-item>
 
-              <b-nav-item class="ml-2" href="/Announcement">
+            <!-- <b-nav-item class="ml-2" href="/Announcement">
               <h6><b style="color: #bea44d"> صفحه اصلى </b></h6>
-            </b-nav-item>
+            </b-nav-item> -->
 
-           
-
-          
-
-            <b-nav-item class="ml-2" @click="checkLogout()">
-              <h6><b style="color: #bea44d">خروج </b></h6>
+            <b-nav-item class="ml-2" @click="checkLogout()" v-show="showBtn()">
+              <h6><b style="color: white">خروج </b></h6>
             </b-nav-item>
 
             <!-- <b-nav-item class="ml-2" href="#">
@@ -135,10 +131,24 @@ export default {
   },
   created() {
     // console.log("login..", this.token)
+
+    this.showBtn();
+    
   },
   methods: {
     checkLogout() {
       this.openCreateModal();
+    },
+
+    showBtn() {
+      //  console.log("token: ", this.token);
+      if (this.token == null) {
+        console.log("no token ");
+
+        return false;
+      } else {
+        return true;
+      }
     },
 
     logout() {
@@ -149,12 +159,6 @@ export default {
       this.closeCreateModal();
       this.$router.push({ path: "/" });
       this.snackbarGreen = true;
-    },
-
-    showBtn() {
-      if (this.token) {
-        return true;
-      } else return false;
     },
 
     openCreateModal() {

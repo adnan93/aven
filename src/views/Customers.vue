@@ -20,6 +20,19 @@
               @click="openCreateModal"
               >افزودن کاربر
             </v-btn>
+
+            <v-btn
+              class="btnsize ml-1"
+              color="#bea44d"
+              elevation="5"
+              rounded
+              large
+              @click="goBack()"
+              type="submit"
+              variant="primary"
+              :loading="loadingbtn"
+              >بازگشت
+            </v-btn>
           </b-col>
         </b-row>
 
@@ -41,6 +54,7 @@
                       v-model="editForm.Name"
                       type="text"
                       placeholder="نام "
+                      label="نام "
                       required
                       outlined
                       dense
@@ -51,15 +65,16 @@
                       v-model="editForm.Family"
                       type="text"
                       placeholder="نام خانوادگی"
+                      label="نام خانوادگی"
                       required
                       outlined
                       dense
-                      :rules="[phoneRules.required]"
                     />
 
                     <v-text-field
                       v-model="checkPhone"
                       placeholder="شماره موبایل"
+                      label="شماره موبایل"
                       required
                       outlined
                       dense
@@ -76,6 +91,7 @@
                       type="text"
                       v-model="checkMelliCode"
                       placeholder="کد ملی ده رقمی"
+                      label="کد ملی ده رقمی"
                       required
                       outlined
                       dense
@@ -93,10 +109,20 @@
                       :type="show4 ? 'text' : 'password'"
                       required
                       placeholder="رمز عبور "
+                      label="رمز عبور "
                       @click:append="show4 = !show4"
                       outlined
                       dense
-                      :rules="[phoneRules.required]"
+                    />
+
+                    <v-text-field
+                      v-model="editForm.Username"
+                      type="text"
+                      placeholder="نام کاربری"
+                      label="نام کاربری"
+                      required
+                      outlined
+                      dense
                     />
                   </b-col>
                 </b-row>
@@ -112,6 +138,15 @@
                     rounded
                     larg
                     @click="updateScorebtn"
+                    :disabled="
+                      editForm.Username &&
+                      MelliCodeStatus &&
+                      editForm.Name &&
+                      editForm.Password &&
+                      MobileStatus
+                        ? false
+                        : true
+                    "
                     >ویرایش
                   </v-btn>
 
@@ -243,9 +278,14 @@ export default {
       checkPhone: "",
 
       //validation
+      MelliCodeStatus: "",
+      MobileStatus: "",
+      notVaildCode: "",
+
       phoneRules: {
         required: (value) => !!value || "این فیلد الزامی است",
         validNum: (v) => /^[\s۰-۹\s0-9]+$/.test(v) || "شماره معتبر نیست",
+        select2: (v) => v.length == 11 || "شماره موبایل معتبر نیست",
       },
 
       melliRules: {
@@ -281,6 +321,7 @@ export default {
         Family: "",
         Mobile: "",
         NationalCode: "",
+        Username: "",
       },
 
       //Delete
@@ -363,6 +404,10 @@ export default {
   methods: {
     ...mapActions(["CustomerLogIn"]),
 
+    goBack() {
+      this.$router.push({ path: "/Announcement" });
+    },
+
     customerManager() {
       this.$router.push({ path: "/Announcement" });
     },
@@ -429,14 +474,11 @@ export default {
     async editRow(row) {
       this.editedRow = row;
       this.openEditModal();
-
-      console.log("row::: ", row);
       this.editForm.Id = row.item.Id;
-
       this.editForm.Password = row.item.Password;
       this.editForm.Name = row.item.Name;
-
       this.editForm.Family = row.item.Family;
+      this.editForm.Username = row.item.Username;
 
       this.checkMelliCode = row.item.NationalCode;
 
