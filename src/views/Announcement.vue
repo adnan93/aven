@@ -601,6 +601,27 @@ export default {
 
       console.log(response);
 
+      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
+
+      this.AllAnnounces = rest.data;
+      for (let item of this.AllAnnounces) {
+        if (item.Type == 0) {
+          item.Type = "صورت مالی";
+        } else if (item.Type == 1) {
+          item.Type = "گزارش ماهانه پرنفوی";
+        } else if (item.Type == 2) {
+          item.Type = "تصمیمات و دعوت به مجامع";
+        } else if (item.Type == 3) {
+          item.Type = "افشای اطلاعات با اهمیت";
+        } else if (item.Type == 4) {
+          item.Type = "آگهی های ثبتی";
+        }
+      }
+
       // this.text = await this.getMessage;
 
       // if ((await this.getMessageType) == 1) {
