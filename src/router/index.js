@@ -10,11 +10,7 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  {
-    path: '/customerLogin',
-    name: 'customerLogin',
-    component: () => import('../views/customerLogin.vue')
-  },
+
   
   {
     path: '/SignUp',
@@ -23,40 +19,17 @@ const routes = [
   },
 
   {
-    path: '/Update',
-    name: 'Update',
-    component: () => import('../views/Update.vue')
-  },
-  
-
-  {
-    path: '/Score',
-    name: 'Score',
-    component: () => import('../views/Score.vue')
-  },
-
-
-  {
     path: '/Announcement',
     name: 'Announcement',
     component: () => import('../views/Announcement.vue')
   },
 
   {
-    path: '/UserLogin',
-    name: 'UserLogin',
-    component: () => import('../views/UserLogin.vue')
-  },
-  {
     path: '/ForgotPassword',
     name: 'ForgotPassword',
     component: () => import('../views/ForgotPassword.vue')
   },
-  {
-    path: '/customerProfile',
-    name: 'customerProfile',
-    component: () => import('../views/customerProfile.vue')
-  }, 
+
 
   {
     path: '/Customer',
@@ -64,12 +37,6 @@ const routes = [
     component: () => import('../views/Customer.vue')
   }, 
   
-
-  {
-    path: '/User',
-    name: 'User',
-    component: () => import('../views/User.vue')
-  }, 
 
   {
     path: '/Customers',

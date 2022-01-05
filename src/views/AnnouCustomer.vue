@@ -10,71 +10,87 @@
         >
 
         <b-row>
-          <b-col>
-            <div align="right">
-              <b-form-input
-                type="text"
-                v-model="form.Family"
-                placeholder="عنوان اطلاعیه"
-                required
-                outlined
-                dense
-              />
-            </div>
-            <br />
+          <b-container style="padding-left: 5%" fluid>
+            <b-row>
+              <b-col cols="12" md="4" class="d-flex mb-3">
+                <div dir="rtl" class="container">
+                  <v-select
+                    class="select"
+                    :items="AnnouncesSearch"
+                    :item-text="'Name'"
+                    :item-value="'Value'"
+                    type="text"
+                    placeholder=" نوع اطلاعیه"
+                    v-model="searchForm.Type"
+                    required
+                    outlined
+                    dense
+                  >
+                  </v-select>
 
-            <date-picker
-              class="datePicker"
-              v-model="BirthDate"
-              label="تاریخ انتشار"
-              color="#bea44d"
-              format="jYYYY-jMM-jDD"
-              inputFormat="YYYY-MM-DD"
-              type="date"
-            ></date-picker>
-            <br />
+                  <date-picker
+                    class="datePicker"
+                    v-model="searchForm.Starting"
+                    label="تاریخ شروع"
+                    color="#bea44d"
+                    format="jYYYY-jMM-jDD"
+                    inputFormat="YYYY-MM-DD"
+                    type="date"
+                  ></date-picker>
 
-            <v-btn
-              class="select2"
-              color="#bea44d"
-              elevation="3"
-              rounded
-              small
-              outlined
-              @click="GoToCustomer()"
-            >
-              <v-icon style="font-size: 20px">search</v-icon> جستجو
-            </v-btn>
-          </b-col>
+                  <br />
+
+                  <date-picker
+                    class="datePicker"
+                    v-model="searchForm.Ending"
+                    label="تاریخ پایان"
+                    color="#bea44d"
+                    format="jYYYY-jMM-jDD"
+                    inputFormat="YYYY-MM-DD"
+                    type="date"
+                  ></date-picker>
+                  <br />
+
+                  <v-btn
+                    elevation="3"
+                    dark
+                    rounded
+                    color="#bea44d"
+                    @click="doSearch"
+                    style="margin-right: 0.3125em"
+                    :loading="searchbtn"
+                  >
+                    <v-icon> search </v-icon>
+                  </v-btn>
+
+                  <v-btn
+                    elevation="3"
+                    dark
+                    rounded
+                    color="#bea44d"
+                    @click="showAll"
+                    :disabled="!showSearch"
+                  >
+                    مشاهده همه
+                  </v-btn>
+                </div>
+              </b-col>
+
+           
+
+            </b-row>
+          </b-container>
+
+          <br />
 
           <b-col> </b-col>
           <b-col> </b-col>
           <b-col> </b-col>
-
-          <!-- <b-col align="left" v-show="IsAdmin == 1">
-            <v-btn
-              class="btnsize"
-              color="#bea44d"
-              elevation="3"
-              rounded
-              small
-              @click="openCreateModal"
-              >افزودن اطلاعیه
-            </v-btn>
-            <v-btn
-              class="btnsize"
-              color="#bea44d"
-              elevation="3"
-              rounded
-              small
-              @click="customerManager"
-              >مدیریت کاربران
-            </v-btn>
-          </b-col> -->
         </b-row>
 
         <hr />
         <div>
+          <!-- افزودن اطلاعیه -->
           <div>
             <b-modal
               v-model="showCreateModal"
@@ -87,57 +103,44 @@
               <b-container fluid>
                 <b-row>
                   <b-col>
+                    <v-text-field
+                      placeholder="نام اطلاعیه"
+                      :item-text="'Name'"
+                      :item-value="'Value'"
+                      v-model="createForm.Title"
+                      outlined
+                      dense
+                      required
+                      :rules="[phoneRules.required]"
+                    >
+                    </v-text-field>
                     <v-select
                       class="select"
-                      :items="Gender"
+                      :items="Announces"
                       :item-text="'Name'"
                       :item-value="'Value'"
                       type="text"
-                      label="عنوان اطلاعیه"
-                      v-model="form.Gender"
+                      placeholder=" نوع اطلاعیه"
+                      v-model="createForm.Type"
                       required
                       outlined
                       dense
                     >
                     </v-select>
 
-                    <div>
-                      <v-text-field
-                        id="date3"
-                        label="تاریخ تولد"
-                        :item-text="'Name'"
-                        :item-value="'Value'"
-                        v-model="BirthDate"
-                        outlined
-                        dense
-                        required
-                        :rules="[phoneRules.required]"
-                        append-icon="today"
-                      >
-                      </v-text-field>
-
-                      <date-picker
-                        element="date3"
-                        class="datePicker"
-                        v-model="BirthDate"
-                        label="تاریخ تولد"
-                        color="#bea44d"
-                        format="jYYYY-jMM-jDD"
-                        inputFormat="YYYY-MM-DD"
-                        type="date"
-                      ></date-picker>
-                    </div>
-
-                    <br />
-
-                    <b-form-input
-                      v-model="form.Description"
-                      placeholder="توضیحات"
-                      required
+                    <v-file-input
+                      placeholder="  فایل اطلاعیه رو آپلود کنید "
+                      @change="bgBase64"
                       outlined
-                    />
+                      :clearable="true"
+                      append-icon="mdi-paperclip"
+                      prepend-icon=""
+                      accept="application/pdf"
+                      show-size
+                    >
+                    </v-file-input>
 
-                    <br />
+                  
                   </b-col>
                 </b-row>
               </b-container>
@@ -183,32 +186,42 @@
               <b-container fluid>
                 <b-row>
                   <b-col>
-                    <b-form-input
-                      type="text"
+                    <v-text-field
+                      placeholder="نام اطلاعیه"
+                      :item-text="'Name'"
+                      :item-value="'Value'"
                       v-model="editForm.Title"
-                      placeholder="نام فعالیت "
+                      outlined
+                      dense
+                      required
+                      :rules="[phoneRules.required]"
+                    >
+                    </v-text-field>
+                    <v-select
+                      class="select"
+                      :items="Announces"
+                      :item-text="'Name'"
+                      :item-value="'Value'"
+                      type="text"
+                      placeholder=" نوع اطلاعیه"
+                      v-model="editForm.Type"
                       required
                       outlined
-                    />
+                      dense
+                    >
+                    </v-select>
 
-                    <br />
-
-                    <b-form-input
-                      v-model="editForm.PointsNeeded"
-                      placeholder="تعداد اطلاعیه"
-                      type="number"
-                      required
+                    <v-file-input
+                      placeholder="  فایل اطلاعیه رو آپلود کنید "
+                      @change="bgBase64"
                       outlined
-                    />
-
-                    <br />
-
-                    <b-form-input
-                      v-model="editForm.Description"
-                      placeholder="توضیحات"
-                      required
-                      outlined
-                    />
+                      :clearable="true"
+                      append-icon="mdi-paperclip"
+                      prepend-icon=""
+                      accept="application/pdf"
+                      show-size
+                    >
+                    </v-file-input>
 
                     <br />
                   </b-col>
@@ -291,7 +304,7 @@
 
           <div>
             <b-table
-              :items="items"
+              :items="AllAnnounces"
               :fields="fields"
               striped
               responsive="sm"
@@ -309,6 +322,18 @@
                   style="font-size: 20px; color: red"
                   >delete_outline</v-icon
                 >
+
+                <v-icon
+                  @click="downloadRow(row)"
+                  style="font-size: 20px; color: green"
+                  >download</v-icon
+                >
+              </template>
+
+              <template #cell(Persian)="row">
+                {{
+                  new Date(row.item.CreationDate).toLocaleDateString("fa-IR")
+                }}
               </template>
             </b-table>
           </div>
@@ -338,6 +363,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import axios from "axios";
 
 export default {
   name: "Score",
@@ -346,8 +372,45 @@ export default {
 
   data() {
     return {
-      //validation
+      //search
+      searchForm: {
+        Type: "",
+        Starting: "",
+        Ending: "",
+      },
+      showSearch: false,
+      searchbtn: false,
 
+      //AllAnnounces
+      AllAnnounces: [],
+      AnnouncesList: [],
+
+      //createForm
+      createForm: {
+        Title: "",
+        Type: "",
+        PdfFile: "",
+        Base64File: "",
+      },
+      bg64: "",
+
+      Announces: [
+        { Name: "صورت مالی", Value: 0 },
+        { Name: "گزارش ماهانه پرنفوی", Value: 1 },
+        { Name: "تصمیمات و دعوت به مجامع", Value: 2 },
+        { Name: "افشای اطلاعات با اهمیت", Value: 3 },
+        { Name: "آگهی های ثبتی", Value: 4 },
+      ],
+
+      AnnouncesSearch: [
+        { Name: "صورت مالی", Value: "0" },
+        { Name: "گزارش ماهانه پرنفوی", Value: "1" },
+        { Name: "تصمیمات و دعوت به مجامع", Value: "2" },
+        { Name: "افشای اطلاعات با اهمیت", Value: "3" },
+        { Name: "آگهی های ثبتی", Value: 4 },
+      ],
+
+      //validation
       phoneRules: {
         required: (value) => !!value || "این فیلد الزامی است",
         validNum: (v) => /^[\s۰-۹\s0-9]+$/.test(v) || "شماره معتبر نیست",
@@ -373,11 +436,13 @@ export default {
       //Edit
       editLoading: false,
       editedRow: "",
+
       editForm: {
         Id: "",
-        PointsNeeded: "",
         Title: "",
-        Description: "",
+        Type: "",
+        PdfFile: "",
+        Base64File: "",
       },
 
       //Delete
@@ -394,9 +459,8 @@ export default {
       //table
       fields: [
         { Title: "عنوان اطلاعیه" },
-        { PointsNeeded: " زمان انتشار" },
-        { Description: "توضیحات" },
-        { actions: "عملیات" },
+        { Type: "نوع اطلاعیه" },
+        { Persian: "تاریخ انتشار" },
       ],
 
       items: [],
@@ -405,6 +469,101 @@ export default {
 
   methods: {
     ...mapActions(["CustomerLogIn"]),
+
+    async downloadRow(row) {
+      console.log(row.item.PdfFile);
+
+      let response = await axios.get(
+        `http://localhost:8080/api/Announce/GetPdfFile/${row.item.PdfFile}`,
+        row.item.PdfFile,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
+
+      console.log(response.data);
+    },
+
+    async showAll() {
+      this.showSearch = false;
+
+      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
+
+      this.AllAnnounces = rest.data;
+      for (let item of this.AllAnnounces) {
+        if (item.Type == 0) {
+          item.Type = "صورت مالی";
+        } else if (item.Type == 1) {
+          item.Type = "گزارش ماهانه پرنفوی";
+        } else if (item.Type == 2) {
+          item.Type = "تصمیمات و دعوت به مجامع";
+        } else if (item.Type == 3) {
+          item.Type = "افشای اطلاعات با اهمیت";
+        } else if (item.Type == 4) {
+          item.Type = "آگهی های ثبتی";
+        }
+      }
+    },
+
+    async doSearch() {
+      this.showSearch = true;
+      this.searchbtn = true;
+
+      console.log("search:", this.searchForm);
+      this.showSearchScore = true;
+      let res = await axios.post(
+        `http://localhost:8080/api/Announce/GetByDateAndType/`,
+        this.searchForm,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
+
+      for (let item of res.data) {
+        if (item.Type == 0) {
+          item.Type = "صورت مالی";
+        } else if (item.Type == 1) {
+          item.Type = "گزارش ماهانه پرنفوی";
+        } else if (item.Type == 2) {
+          item.Type = "تصمیمات و دعوت به مجامع";
+        } else if (item.Type == 3) {
+          item.Type = "افشای اطلاعات با اهمیت";
+        } else if (item.Type == 4) {
+          item.Type = "آگهی های ثبتی";
+        }
+      }
+      this.AllAnnounces = res.data;
+      this.searchbtn = false;
+    },
+
+    bgBase64(e) {
+      new Promise((res) => {
+        const fileReader = new FileReader();
+        fileReader.onload = function (FileLoadEvent) {
+          const image64 = FileLoadEvent.target?.result;
+          res(image64);
+        };
+        fileReader.readAsDataURL(e);
+      }).then((img) => {
+        this.bg64 = img;
+        this.bgSend();
+      });
+
+      // this.images.push(e.name);
+    },
+
+    async bgSend() {
+      this.createForm.Base64File = this.bg64;
+      this.editForm.Base64File = this.bg64;
+    },
 
     customerManager() {
       this.$router.push({ path: "/Customers" });
@@ -422,18 +581,49 @@ export default {
 
     async addNewProgram() {
       this.createLoading = true;
-      await this.setNewprogram(this.form);
 
-      await this.getUserprograms();
-      this.items = this.getprograms;
+      let response = await axios.post(
+        `http://localhost:8080/api/Announce/Create`,
+        this.createForm,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
-      this.text = await this.getMessage;
+      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
 
-      if ((await this.getMessageType) == 1) {
-        this.snackColor = "green";
-      } else {
-        this.snackColor = "red";
+      for (let item of rest.data) {
+        if (item.Type == 0) {
+          item.Type = "صورت مالی";
+        } else if (item.Type == 1) {
+          item.Type = "گزارش ماهانه پرنفوی";
+        } else if (item.Type == 2) {
+          item.Type = "تصمیمات و دعوت به مجامع";
+        } else if (item.Type == 3) {
+          item.Type = "افشای اطلاعات با اهمیت";
+        } else if (item.Type == 4) {
+          item.Type = "آگهی های ثبتی";
+        }
       }
+
+      this.AllAnnounces = rest.data;
+
+      this.text = response.data.Description;
+
+      this.createForm.Title = "";
+      this.createForm.Type = "";
+
+      this.createForm.PdfFile = "";
+
+      this.createForm.Base64File = "";
+
+      this.snackColor = "green";
 
       this.snackbarGreen = true;
 
@@ -448,13 +638,24 @@ export default {
       this.editedRow = row;
       this.editForm.Id = row.item.Id;
       this.openEditModal();
-      await this.getprogramById(this.editedRow.item.Id);
 
-      console.log("this.getTitle", await this.getTitle);
+      this.editForm.Title = row.item.Title;
+      this.editForm.Type = row.item.Type;
+      this.editForm.PdfFile = row.item.PdfFile;
 
-      this.editForm.Title = await this.getTitle;
-      this.editForm.PointsNeeded = await this.getPointsNeeded;
-      this.editForm.Description = await this.getDescription;
+      console.log("row", row);
+
+      if (row.item.Type == "صورت مالی") {
+        this.editForm.Type = 0;
+      } else if (row.item.Type == "گزارش ماهانه پرنفوی") {
+        this.editForm.Type = 1;
+      } else if (row.item.Type == "تصمیمات و دعوت به مجامع") {
+        this.editForm.Type = 2;
+      } else if (row.item.Type == "افشای اطلاعات با اهمیت") {
+        this.editForm.Type = 3;
+      } else if (row.item.Type == "آگهی های ثبتی") {
+        this.editForm.Type = 4;
+      }
     },
 
     openEditModal() {
@@ -466,18 +667,41 @@ export default {
 
     async updateScorebtn() {
       this.editLoading = true;
-      await this.updateprogram(this.editForm);
 
-      await this.getUserprograms();
-      this.items = this.getprograms;
+      await axios.post(
+        `http://localhost:8080/api/Announce/Update`,
+        this.editForm,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
+           
 
-      this.text = await this.getMessage;
 
-      if ((await this.getMessageType) == 1) {
-        this.snackColor = "green";
-      } else {
-        this.snackColor = "red";
+      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
+
+      this.AllAnnounces = rest.data;
+      for (let item of this.AllAnnounces) {
+        if (item.Type == 0) {
+          item.Type = "صورت مالی";
+        } else if (item.Type == 1) {
+          item.Type = "گزارش ماهانه پرنفوی";
+        } else if (item.Type == 2) {
+          item.Type = "تصمیمات و دعوت به مجامع";
+        } else if (item.Type == 3) {
+          item.Type = "افشای اطلاعات با اهمیت";
+        } else if (item.Type == 4) {
+          item.Type = "آگهی های ثبتی";
+        }
       }
+
+  
 
       this.snackbarGreen = true;
 
@@ -506,11 +730,19 @@ export default {
       let deletedId = this.row.item.Id;
       console.log("ID :", deletedId);
 
-      await this.deleteprogram(deletedId);
+      let response = await axios.post(
+        `http://localhost:8080/api/Announce/Delete/${deletedId}`,
+        this.createForm,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
-      this.text = await this.getMessage;
+      this.text = response.data.Description;
 
-      if ((await this.getMessageType) == 1) {
+      if (response.data.MessageType == 1) {
         this.snackColor = "green";
       } else {
         this.snackColor = "red";
@@ -518,8 +750,26 @@ export default {
 
       this.snackbarGreen = true;
 
-      await this.getUserprograms();
-      this.items = this.getprograms;
+      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
+
+      this.AllAnnounces = rest.data;
+      for (let item of this.AllAnnounces) {
+        if (item.Type == 0) {
+          item.Type = "صورت مالی";
+        } else if (item.Type == 1) {
+          item.Type = "گزارش ماهانه پرنفوی";
+        } else if (item.Type == 2) {
+          item.Type = "تصمیمات و دعوت به مجامع";
+        } else if (item.Type == 3) {
+          item.Type = "افشای اطلاعات با اهمیت";
+        } else if (item.Type == 4) {
+          item.Type = "آگهی های ثبتی";
+        }
+      }
 
       this.deleteLoading = false;
 
@@ -527,13 +777,36 @@ export default {
     },
   },
   async created() {
-      if (!window.location.hash) {
+    if (!window.location.hash) {
       window.location = window.location + "#loaded";
       window.location.reload();
     }
-    
+
     this.IsAdmin = await this.getIsAdmin;
     console.log("IsssAdmin", this.IsAdmin);
+
+    let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
+
+    this.AllAnnounces = rest.data;
+    for (let item of this.AllAnnounces) {
+      if (item.Type == 0) {
+        item.Type = "صورت مالی";
+      } else if (item.Type == 1) {
+        item.Type = "گزارش ماهانه پرنفوی";
+      } else if (item.Type == 2) {
+        item.Type = "تصمیمات و دعوت به مجامع";
+      } else if (item.Type == 3) {
+        item.Type = "افشای اطلاعات با اهمیت";
+      } else if (item.Type == 4) {
+        item.Type = "آگهی های ثبتی";
+      }
+    }
+
+    console.log("AllAnnounces: ", this.AllAnnounces);
   },
 };
 </script>

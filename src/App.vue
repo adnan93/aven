@@ -17,7 +17,12 @@
           </b-navbar>
         </div>
         <b-navbar-brand>
-          <router-link to="/">آوین</router-link>
+          <router-link to="/"> آوین سرمایه گستر 
+          <b> 
+          زمرد
+          </b>
+          
+          </router-link>
         </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

@@ -95,10 +95,13 @@
               @click="updateCust()"
               type="submit"
               variant="primary"
-              :loading="loadingbtn"
+              :loading="loadingSubmitbtn"
               :disabled="
-                form.Username && MelliCodeStatus && form.Name && form.Password 
-                && MobileStatus
+                form.Username &&
+                MelliCodeStatus &&
+                form.Name &&
+                form.Password &&
+                MobileStatus
                   ? false
                   : true
               "
@@ -110,20 +113,58 @@
               color="#bea44d"
               elevation="5"
               rounded
-              x-large
+              large
               @click="goBack()"
               type="submit"
               variant="primary"
-              :loading="loadingbtn"
-              
               >بازگشت
             </v-btn>
           </b-form>
         </b-container>
+        <hr />
       </b-col>
 
       <b-col cols="2"> </b-col>
     </b-row>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    
+    <v-snackbar v-model="snackbarGreen" :color="snackColor" dir="rtl">
+      {{ text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="dark"
+          rounded
+          v-bind="attrs"
+          text
+          @click="snackbarGreen = false"
+        >
+          x
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -133,13 +174,17 @@ import axios from "axios";
 export default {
   data() {
     return {
+      loadingSubmitbtn:false,
+      snackbarGreen:false,
+      snackColor: "",
+      text: "",
+
       show4: "",
       //validation
       checkMelliCode: "",
       checkPhone: "",
-            MobileStatus: "",
-            notVaildCode: "",
-
+      MobileStatus: "",
+      notVaildCode: "",
 
       melliRules: {
         required: (value) => !!value || "این فیلد الزامی است",
@@ -213,6 +258,7 @@ export default {
   },
   methods: {
     async onSubmit(event) {
+      this.loadingSubmitbtn = true;
       event.preventDefault();
       this.signUpLoading = true;
 
@@ -224,34 +270,41 @@ export default {
         })
 
         .then((response) => {
+
+          
           this.text = response.data.Description;
 
           if (response.data.MessageType == 1) {
             this.snackColor = "green";
             this.$router.push({ path: "/Customers" });
           } else {
+                      this.text = response.data.Description;
+
+            console.log(response.data)
+                      this.snackbarGreen = true;
+
+
             this.snackColor = "red";
           }
 
           this.signUpLoading = false;
-          this.snackbarGreen = true;
         })
         .catch((e) => {
           this.errors.push(e);
         });
+      this.loadingSubmitbtn = false;
     },
 
-    goBack(){
+    goBack() {
       this.$router.push({ path: "/Customers" });
-
-    }
+    },
   },
-  created(){
-     if (!window.location.hash) {
-      window.location = window.location + "#loaded";
-      window.location.reload();
-    }
-  }
+  created() {
+
+
+    
+
+  },
 };
 </script>
 

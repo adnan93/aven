@@ -22,7 +22,7 @@
             </v-btn>
 
             <v-btn
-              class="btnsize ml-1"
+              class="btnsize mr-1"
               color="#bea44d"
               elevation="5"
               rounded
@@ -30,7 +30,6 @@
               @click="goBack()"
               type="submit"
               variant="primary"
-              :loading="loadingbtn"
               >بازگشت
             </v-btn>
           </b-col>
@@ -218,7 +217,16 @@
               striped
               responsive="sm"
               hover
+              :busy="customerTableLoading"
+              loading-text="در حال بارگیری ..."
             >
+              <template #table-busy>
+                <div class="text-center my-2">
+                  <b-spinner class="align-middle"></b-spinner>
+                  <strong>در حال دریافت اطلاعات...</strong>
+                </div>
+              </template>
+
               <template #cell(actions)="row">
                 <v-icon
                   @click="editRow(row)"
@@ -255,6 +263,25 @@
         </v-btn>
       </template>
     </v-snackbar>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
@@ -272,6 +299,7 @@ export default {
       //customers table
       AllCustomsers: [], //checkAdmin
       show4: "",
+      customerTableLoading: false,
 
       IsAdmin: "",
       checkMelliCode: "",
@@ -602,6 +630,8 @@ export default {
     },
   },
   async created() {
+    this.customerTableLoading = true;
+
     this.IsAdmin = await this.getIsAdmin;
     console.log("IsssAdmin", this.IsAdmin);
 
@@ -618,6 +648,8 @@ export default {
       .catch((e) => {
         this.errors.push(e);
       });
+
+    this.customerTableLoading = false;
   },
 };
 </script>
