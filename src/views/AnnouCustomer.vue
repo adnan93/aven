@@ -33,7 +33,7 @@
                     v-model="searchForm.Starting"
                     label="تاریخ شروع"
                     color="#bea44d"
-                    format="jYYYY-jMM-jDD"
+                    format="jYYYY/jMM/jDD"
                     inputFormat="YYYY-MM-DD"
                     type="date"
                   ></date-picker>
@@ -45,7 +45,7 @@
                     v-model="searchForm.Ending"
                     label="تاریخ پایان"
                     color="#bea44d"
-                    format="jYYYY-jMM-jDD"
+                    format="jYYYY/jMM/jDD"
                     inputFormat="YYYY-MM-DD"
                     type="date"
                   ></date-picker>
@@ -75,9 +75,6 @@
                   </v-btn>
                 </div>
               </b-col>
-
-           
-
             </b-row>
           </b-container>
 
@@ -139,8 +136,6 @@
                       show-size
                     >
                     </v-file-input>
-
-                  
                   </b-col>
                 </b-row>
               </b-container>
@@ -312,18 +307,6 @@
             >
               <template #cell(actions)="row">
                 <v-icon
-                  @click="editRow(row)"
-                  style="font-size: 20px; color: blue"
-                  >edit</v-icon
-                >
-
-                <v-icon
-                  @click="deletRow(row)"
-                  style="font-size: 20px; color: red"
-                  >delete_outline</v-icon
-                >
-
-                <v-icon
                   @click="downloadRow(row)"
                   style="font-size: 20px; color: green"
                   >download</v-icon
@@ -461,6 +444,7 @@ export default {
         { Title: "عنوان اطلاعیه" },
         { Type: "نوع اطلاعیه" },
         { Persian: "تاریخ انتشار" },
+        { actions: "دانلود" },
       ],
 
       items: [],
@@ -475,7 +459,6 @@ export default {
 
       let response = await axios.get(
         `http://localhost:8080/api/Announce/GetPdfFile/${row.item.PdfFile}`,
-        row.item.PdfFile,
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -509,6 +492,9 @@ export default {
           item.Type = "آگهی های ثبتی";
         }
       }
+
+      this.searchForm.Starting = "";
+      this.searchForm.Ending = "";
     },
 
     async doSearch() {
@@ -677,8 +663,6 @@ export default {
           },
         }
       );
-           
-
 
       let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
         headers: {
@@ -700,8 +684,6 @@ export default {
           item.Type = "آگهی های ثبتی";
         }
       }
-
-  
 
       this.snackbarGreen = true;
 
@@ -783,7 +765,6 @@ export default {
     }
 
     this.IsAdmin = await this.getIsAdmin;
-    console.log("IsssAdmin", this.IsAdmin);
 
     let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
       headers: {

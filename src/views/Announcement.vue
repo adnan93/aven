@@ -33,7 +33,7 @@
                     v-model="searchForm.Starting"
                     label="تاریخ شروع"
                     color="#bea44d"
-                    format="jYYYY-jMM-jDD"
+                    format="jYYYY/jMM/jDD"
                     inputFormat="YYYY-MM-DD"
                     type="date"
                   ></date-picker>
@@ -45,7 +45,7 @@
                     v-model="searchForm.Ending"
                     label="تاریخ پایان"
                     color="#bea44d"
-                    format="jYYYY-jMM-jDD"
+                    format="jYYYY/jMM/jDD"
                     inputFormat="YYYY-MM-DD"
                     type="date"
                   ></date-picker>
@@ -416,16 +416,15 @@
               striped
               responsive="sm"
               hover
-                :busy="customerTableLoading"
-                  loading-text="در حال بارگیری ..."
+              :busy="customerTableLoading"
+              loading-text="در حال بارگیری ..."
             >
-
-             <template #table-busy>
-                    <div class="text-center my-2">
-                      <b-spinner class="align-middle"></b-spinner>
-                      <strong>در حال دریافت اطلاعات...</strong>
-                    </div>
-                  </template>
+              <template #table-busy>
+                <div class="text-center my-2">
+                  <b-spinner class="align-middle"></b-spinner>
+                  <strong>در حال دریافت اطلاعات...</strong>
+                </div>
+              </template>
 
               <template #cell(actions)="row">
                 <v-icon
@@ -495,7 +494,7 @@ export default {
         Starting: "",
         Ending: "",
       },
-            customerTableLoading:false,
+      customerTableLoading: false,
 
       showSearch: false,
       searchbtn: false,
@@ -593,11 +592,8 @@ export default {
     ...mapActions(["CustomerLogIn"]),
 
     async downloadRow(row) {
-      console.log(row.item.PdfFile);
-
       let response = await axios.get(
         `http://localhost:8080/api/Announce/GetPdfFile/${row.item.PdfFile}`,
-        row.item.PdfFile,
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -605,7 +601,7 @@ export default {
         }
       );
 
-      console.log(response.data);
+      console.log(response);
     },
 
     async showAll() {
@@ -631,6 +627,9 @@ export default {
           item.Type = "آگهی های ثبتی";
         }
       }
+
+          this.searchForm.Starting = "";
+      this.searchForm.Ending = "";
     },
 
     async doSearch() {
@@ -664,6 +663,7 @@ export default {
       }
       this.AllAnnounces = res.data;
       this.searchbtn = false;
+  
     },
 
     bgBase64(e) {
@@ -800,12 +800,11 @@ export default {
         }
       );
 
-       console.log('update**********',response);
+      console.log("update**********", response);
 
+      this.text = response.data.Description;
 
-          this.text = response.data.Description;
-
-      if ((response.data.MessageType) == 1) {
+      if (response.data.MessageType == 1) {
         this.snackColor = "green";
       } else {
         this.snackColor = "red";
@@ -921,11 +920,7 @@ export default {
       window.location.reload();
     }
 
-    this.customerTableLoading=true,
-
-
-    this.IsAdmin = await this.getIsAdmin;
-    console.log("IsssAdmin", this.IsAdmin);
+    (this.customerTableLoading = true), (this.IsAdmin = await this.getIsAdmin);
 
     let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
       headers: {
@@ -948,7 +943,7 @@ export default {
       }
     }
 
-    this.customerTableLoading=false;
+    this.customerTableLoading = false;
   },
 };
 </script>

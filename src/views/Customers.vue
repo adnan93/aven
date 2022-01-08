@@ -535,7 +535,7 @@ export default {
 
           if (response.data.MessageType == 1) {
             this.snackColor = "green";
-            this.$router.push({ path: "/Customers" });
+         //   this.$router.push({ path: "/Customers" });
           } else {
             this.snackColor = "red";
           }
@@ -598,7 +598,6 @@ export default {
 
           if (response.data.MessageType == 1) {
             this.snackColor = "green";
-            this.$router.push({ path: "/Customers" });
           } else {
             this.snackColor = "red";
           }
@@ -633,7 +632,6 @@ export default {
     this.customerTableLoading = true;
 
     this.IsAdmin = await this.getIsAdmin;
-    console.log("IsssAdmin", this.IsAdmin);
 
     await axios
       .get(`http://localhost:8080/api/User/GetAllUsers`, {

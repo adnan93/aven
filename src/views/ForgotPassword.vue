@@ -226,7 +226,6 @@ export default {
       await axios
         .post(`http://localhost:8080/api/Customer/ForgotPassword`, this.form)
         .then((response) => {
-          console.log(response.data);
 
           this.text = response.data.Description;
 
@@ -256,7 +255,6 @@ export default {
         )
 
         .then((response) => {
-          console.log(response);
 
           this.text = response.data.Description;
 

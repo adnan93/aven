@@ -53,10 +53,10 @@
                     :loading="loadingbtn"
                     >ورود
                   </v-btn>
-
+<!-- 
                   <a href="/ForgotPassword" style="text-decoration: none">
                     رمز عبور خود را فراموش کردید؟
-                  </a>
+                  </a> -->
                 </div>
               </b-form>
             </b-card>
@@ -163,13 +163,14 @@ export default {
       this.text = await this.getMessage;
       this.IsAdmin = await this.getIsAdmin;
 
-      if ((await this.getMessageType) == 1 && this.IsAdmin) {
+      if ((await this.getMessageType) == 1 && (this.IsAdmin==1)) {
         this.snackColor = "green";
 
         //  console.log("IsssAdmin", this.getIsAdmin);
 
-        this.$router.push({ path: "/Announcement" });
-      } else {
+       this.$router.push({ path: "/Announcement" });
+      } 
+      else  if ((await this.getMessageType) == 1 && (this.IsAdmin==0))  {
         this.$router.push({ path: "/AnnouCustomer" });
       }
       this.snackbarGreen = true;

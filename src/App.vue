@@ -110,6 +110,76 @@
       </v-snackbar>
 
       <router-view class="home" />
+
+
+
+       <b-row class="footer" align="center">
+        <hr />
+
+        <b-col>
+          <div class="place container">
+          
+             <h5>  <b> لینک های مفید </b> </h5> 
+              <br />
+
+              <h6 class="place bedar" style="color:black;">
+                <a  href="https://ex.ebidar.com/v-533" style="color:black;">
+                  <li class="bedar">اقتصاد بیدار</li>
+                </a>
+              </h6>
+
+             
+
+              <h6>
+                <a style="color: black" href="https://t.me/tahlilonline_com">
+                  <li>تحلیل انلاین</li>
+                </a>
+              </h6>
+
+               <h6 class="ml-10">
+                <a style="color: black"> <li>طلاگرام</li> </a>
+              </h6>
+        
+          </div>
+        </b-col>
+
+        <b-col>
+          <div >
+
+            <h5 class="place "> <b> راه های ارتباطی </b> </h5>
+            <br />
+            <div > 
+            <h6 style="color: white;">شیراز، بلوار شهید رجائی (فرهنگ شهر)، کوچه 30، ساختمان زمرد </h6>
+            </div>
+
+          <div class="place"> 
+            <h3>
+              <a href="tel:07136317299" style="color: red;"> 071-36317299 </a> 
+            </h3>
+            </div>
+
+            <br />
+          </div>
+          <div class="container">
+    
+          </div>
+        </b-col>
+        <hr />
+        <br>
+
+        <h6>
+          <v-icon style="font-size: 20px; color: white"> copyright </v-icon>
+
+          کلیه حقوق متعلق به گروه مالی زمرد ‌می ‌باشد.
+        </h6>
+        <br />
+
+        <br />
+      </b-row>
+      
+
+
+
     </b-row>
   </v-app>
 </template>
@@ -148,7 +218,6 @@ export default {
     showBtn() {
       //  console.log("token: ", this.token);
       if (this.token == null) {
-        console.log("no token ");
 
         return false;
       } else {
@@ -229,5 +298,9 @@ a {
 
 .bg {
   background-color: rgb(223, 221, 221);
+}
+
+.footer {
+  background-color: #b1b19f;
 }
 </style>

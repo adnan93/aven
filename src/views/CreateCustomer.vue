@@ -92,7 +92,6 @@
               elevation="5"
               rounded
               x-large
-              @click="updateCust()"
               type="submit"
               variant="primary"
               :loading="loadingSubmitbtn"
@@ -234,7 +233,7 @@ export default {
         meli_code == "8888888888" ||
         meli_code == "9999999999"
       ) {
-        console.log("meli_code", meli_code);
+        // console.log("meli_code", meli_code);
 
         this.MelliCodeStatus = false;
         return this.MobileStatus;
