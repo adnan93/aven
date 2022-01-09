@@ -20,11 +20,13 @@
                     :item-text="'Name'"
                     :item-value="'Value'"
                     type="text"
+                    label=" نوع اطلاعیه"
                     placeholder=" نوع اطلاعیه"
                     v-model="searchForm.Type"
                     required
                     outlined
                     dense
+                    color="#10503B"
                   >
                   </v-select>
 
@@ -32,7 +34,7 @@
                     class="datePicker"
                     v-model="searchForm.Starting"
                     label="تاریخ شروع"
-                    color="#bea44d"
+                    color="#10503B"
                     format="jYYYY/jMM/jDD"
                     inputFormat="YYYY-MM-DD"
                     type="date"
@@ -44,21 +46,29 @@
                     class="datePicker"
                     v-model="searchForm.Ending"
                     label="تاریخ پایان"
-                    color="#bea44d"
+                    color="#10503B"
                     format="jYYYY/jMM/jDD"
                     inputFormat="YYYY-MM-DD"
                     type="date"
+                    :disabled="!searchForm.Starting"
                   ></date-picker>
                   <br />
 
                   <v-btn
-                    elevation="3"
-                    dark
+                    class="btnsize ml-1"
+                    color="#10503B"
+                    style="color: white"
+                    elevation="5"
                     rounded
-                    color="#bea44d"
                     @click="doSearch"
-                    style="margin-right: 0.3125em"
+                    variant="primary"
                     :loading="searchbtn"
+                    :disabled="
+                      (searchForm.Ending && searchForm.Starting) ||
+                      searchForm.Type
+                        ? false
+                        : true
+                    "
                   >
                     <v-icon> search </v-icon>
                   </v-btn>
@@ -67,9 +77,8 @@
                     elevation="3"
                     dark
                     rounded
-                    color="#bea44d"
+                    color="#10503B"
                     @click="showAll"
-                    :disabled="!showSearch"
                   >
                     مشاهده همه
                   </v-btn>
@@ -308,7 +317,7 @@
               <template #cell(actions)="row">
                 <v-icon
                   @click="downloadRow(row)"
-                  style="font-size: 20px; color: green"
+                  style="font-size: 20px;  color:#10503B"
                   >download</v-icon
                 >
               </template>
@@ -324,8 +333,10 @@
       </b-col>
 
       <b-col cols="1"> </b-col>
-    </b-row>
 
+    
+    </b-row>
+   
     <v-snackbar v-model="snackbarGreen" :color="snackColor" dir="rtl">
       {{ text }}
 
@@ -341,6 +352,15 @@
         </v-btn>
       </template>
     </v-snackbar>
+
+       <br>     <br>
+    <br>    <br>     <br>
+    <br>
+  <br>     <br>   <br> <br>
+    
+
+    
+
   </div>
 </template>
 
@@ -391,6 +411,7 @@ export default {
         { Name: "تصمیمات و دعوت به مجامع", Value: "2" },
         { Name: "افشای اطلاعات با اهمیت", Value: "3" },
         { Name: "آگهی های ثبتی", Value: 4 },
+        { Name: "همه موارد", Value: "" },
       ],
 
       //validation
@@ -793,4 +814,7 @@ export default {
 </script>
 
 <style>
+.modal-header{
+  background-color: #10503B;;
+}
 </style>

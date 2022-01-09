@@ -13,18 +13,21 @@
           <b-container style="padding-left: 5%" fluid>
             <b-row>
               <b-col cols="12" md="4" class="d-flex mb-3">
-                <div dir="rtl" class="container">
+                <div class="container">
                   <v-select
                     class="select"
+                    dir="rtl"
                     :items="AnnouncesSearch"
                     :item-text="'Name'"
                     :item-value="'Value'"
                     type="text"
                     placeholder=" نوع اطلاعیه"
+                    label=" نوع اطلاعیه"
                     v-model="searchForm.Type"
                     required
                     outlined
                     dense
+                    color="#10503B"
                   >
                   </v-select>
 
@@ -32,7 +35,7 @@
                     class="datePicker"
                     v-model="searchForm.Starting"
                     label="تاریخ شروع"
-                    color="#bea44d"
+                    color="#10503B"
                     format="jYYYY/jMM/jDD"
                     inputFormat="YYYY-MM-DD"
                     type="date"
@@ -44,32 +47,39 @@
                     class="datePicker"
                     v-model="searchForm.Ending"
                     label="تاریخ پایان"
-                    color="#bea44d"
+                    color="#10503B"
                     format="jYYYY/jMM/jDD"
                     inputFormat="YYYY-MM-DD"
                     type="date"
+                    :disabled="!searchForm.Starting"
                   ></date-picker>
                   <br />
 
                   <v-btn
-                    elevation="3"
-                    dark
+                    class="btnsize ml-1"
+                    style="color: #10503b"
+                    color="white"
+                    elevation="5"
                     rounded
-                    color="#bea44d"
                     @click="doSearch"
-                    style="margin-right: 0.3125em"
+                    variant="primary"
                     :loading="searchbtn"
+                    :disabled="
+                      (searchForm.Ending && searchForm.Starting) ||
+                      searchForm.Type
+                        ? false
+                        : true
+                    "
                   >
                     <v-icon> search </v-icon>
                   </v-btn>
 
                   <v-btn
                     elevation="3"
-                    dark
+                    style="color: #10503b"
                     rounded
-                    color="#bea44d"
+                    color="white"
                     @click="showAll"
-                    :disabled="!showSearch"
                   >
                     مشاهده همه
                   </v-btn>
@@ -104,15 +114,18 @@
               <b-col align="center">
                 <v-btn
                   class="btnsize"
-                  color="#bea44d"
+                  color="#10503B"
                   elevation="3"
                   rounded
                   @click="openCreateModal"
+                  style="color: #ffffff"
                   >افزودن اطلاعیه
                 </v-btn>
+
                 <v-btn
                   class="btnsize"
-                  color="#bea44d"
+                  style="color: #ffffff"
+                  color="#10503B"
                   elevation="3"
                   rounded
                   @click="customerManager"
@@ -256,8 +269,9 @@
                 <div class="w-100">
                   <v-btn
                     :loading="createLoading"
+                    style="color:#ffffff"
                     class="btnsize"
-                    color="#bea44d"
+                    color="#0f6b4d"
                     elevation="5"
                     rounded
                     larg
@@ -267,7 +281,7 @@
 
                   <v-btn
                     class="select2"
-                    color="#bea44d"
+                    color="#0f6b4d"
                     elevation="3"
                     rounded
                     larg
@@ -435,13 +449,13 @@
 
                 <v-icon
                   @click="deletRow(row)"
-                  style="font-size: 20px; color: red"
+                  style="font-size: 20px; color: #f7b73a"
                   >delete_outline</v-icon
                 >
 
                 <v-icon
                   @click="downloadRow(row)"
-                  style="font-size: 20px; color: green"
+                  style="font-size: 20px; color: #0f6b4d"
                   >download</v-icon
                 >
               </template>
@@ -474,6 +488,14 @@
         </v-btn>
       </template>
     </v-snackbar>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
@@ -494,6 +516,7 @@ export default {
         Starting: "",
         Ending: "",
       },
+      enable: true,
       customerTableLoading: false,
 
       showSearch: false,
@@ -526,6 +549,7 @@ export default {
         { Name: "تصمیمات و دعوت به مجامع", Value: "2" },
         { Name: "افشای اطلاعات با اهمیت", Value: "3" },
         { Name: "آگهی های ثبتی", Value: 4 },
+        { Name: "همه موارد", Value: "" },
       ],
 
       //validation
@@ -571,7 +595,7 @@ export default {
       showCreateModal: false,
       showEditModal: false,
       showDeleteModal: false,
-      headerBgVariant: "dark",
+      headerBgVariant:  '#0f6b4d',
       headerTextVariant: "light",
 
       //table
@@ -628,7 +652,7 @@ export default {
         }
       }
 
-          this.searchForm.Starting = "";
+      this.searchForm.Starting = "";
       this.searchForm.Ending = "";
     },
 
@@ -663,7 +687,6 @@ export default {
       }
       this.AllAnnounces = res.data;
       this.searchbtn = false;
-  
     },
 
     bgBase64(e) {
@@ -949,4 +972,7 @@ export default {
 </script>
 
 <style>
+.modal-header{
+  background-color: #10503B;;
+}
 </style>

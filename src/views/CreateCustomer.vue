@@ -7,6 +7,7 @@
         <div class="mt-5" dir="rtl" align="center">
           <h3>افزودن کاربر</h3>
         </div>
+        <br>
 
         <b-container fluid>
           <b-form @submit="onSubmit">
@@ -15,6 +16,8 @@
               <b-col>
                 <v-text-field
                   v-model="form.Name"
+                                color="#10503B"
+
                   type="text"
                   placeholder="نام "
                   required
@@ -25,6 +28,8 @@
 
                 <v-text-field
                   v-model="form.Family"
+                                color="#10503B"
+
                   type="text"
                   placeholder="نام خانوادگی"
                   required
@@ -35,6 +40,8 @@
 
                 <v-text-field
                   v-model="checkPhone"
+                                color="#10503B"
+
                   placeholder="شماره موبایل"
                   required
                   outlined
@@ -50,6 +57,8 @@
               <b-col>
                 <v-text-field
                   type="text"
+                                color="#10503B"
+
                   v-model="checkMelliCode"
                   placeholder="کد ملی ده رقمی"
                   required
@@ -64,6 +73,8 @@
                 />
                 <v-text-field
                   v-model="form.Username"
+                                color="#10503B"
+
                   type="text"
                   placeholder="نام کاربری"
                   required
@@ -74,6 +85,8 @@
 
                 <v-text-field
                   :append-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'"
+                                color="#10503B"
+
                   v-model="form.Password"
                   :type="show4 ? 'text' : 'password'"
                   required
@@ -88,10 +101,12 @@
 
             <v-btn
               class="btnsize ml-1"
-              color="#bea44d"
+              color="#10503B"
+               style="color:#ffffff"
+
               elevation="5"
               rounded
-              x-large
+              large
               type="submit"
               variant="primary"
               :loading="loadingSubmitbtn"
@@ -109,13 +124,15 @@
 
             <v-btn
               class="btnsize ml-1"
-              color="#bea44d"
+              color="#10503B"
+              style="color:#10503B"
               elevation="5"
               rounded
               large
               @click="goBack()"
               type="submit"
               variant="primary"
+              outlined
               >بازگشت
             </v-btn>
           </b-form>
@@ -137,17 +154,16 @@
     <br />
     <br />
     <br />
+        <br />
     <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+        <br />
+
+  
+
+
+ 
+  
+    
     
     <v-snackbar v-model="snackbarGreen" :color="snackColor" dir="rtl">
       {{ text }}

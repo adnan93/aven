@@ -13,7 +13,8 @@
           <b-col align="right" class="mb-5">
             <v-btn
               class="btnsize"
-              color="#bea44d"
+              style="color:white"
+              color="#10503B"
               elevation="3"
               rounded
               large
@@ -23,9 +24,10 @@
 
             <v-btn
               class="btnsize mr-1"
-              color="#bea44d"
+              color="#10503B"
               elevation="5"
               rounded
+              outlined
               large
               @click="goBack()"
               type="submit"
@@ -268,20 +270,14 @@
     <br />
     <br />
     <br />
+   <br />
     <br />
+      <br />
     <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+
+   
+   
+   
   </div>
 </template>
 

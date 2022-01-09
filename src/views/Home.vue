@@ -14,7 +14,7 @@
             <b-card class="mt-3" border-variant="dark">
               <template #header>
                 <div style="text-align: center">
-                  <p style="color: black" class="mb-0">ورود</p>
+                  <p style="color: white" class="mb-0">ورود</p>
                 </div>
               </template>
 
@@ -26,6 +26,7 @@
                   outlined
                   dense
                   :rules="[phoneRules.required]"
+                  color="#10503B"
                 />
 
                 <v-text-field
@@ -38,22 +39,24 @@
                   outlined
                   dense
                   :rules="[phoneRules.required]"
+                  color="#10503B"
                 ></v-text-field>
 
                 <br />
                 <div class="container">
                   <v-btn
                     class="btnsize ml-1"
-                    color="#bea44d"
                     elevation="5"
                     rounded
                     large
                     type="submit"
                     variant="primary"
                     :loading="loadingbtn"
+                    style="color: white"
+                    color="#10503B"
                     >ورود
                   </v-btn>
-<!-- 
+                  <!-- 
                   <a href="/ForgotPassword" style="text-decoration: none">
                     رمز عبور خود را فراموش کردید؟
                   </a> -->
@@ -65,14 +68,6 @@
 
         <b-col cols="3"> </b-col>
       </b-row>
-      <br />
-      <br />
-      <br />
-      <br /><br />
-      <br />
-      <br />
-      <br />
-      <br />
       <br />
       <br />
       <br />
@@ -163,14 +158,13 @@ export default {
       this.text = await this.getMessage;
       this.IsAdmin = await this.getIsAdmin;
 
-      if ((await this.getMessageType) == 1 && (this.IsAdmin==1)) {
+      if ((await this.getMessageType) == 1 && this.IsAdmin == 1) {
         this.snackColor = "green";
 
         //  console.log("IsssAdmin", this.getIsAdmin);
 
-       this.$router.push({ path: "/Announcement" });
-      } 
-      else  if ((await this.getMessageType) == 1 && (this.IsAdmin==0))  {
+        this.$router.push({ path: "/Announcement" });
+      } else if ((await this.getMessageType) == 1 && this.IsAdmin == 0) {
         this.$router.push({ path: "/AnnouCustomer" });
       }
       this.snackbarGreen = true;
@@ -204,5 +198,9 @@ p {
 }
 .home {
   background-color: #f0f0f5;
+}
+
+.card-header {
+  background-color: #10503B;
 }
 </style>

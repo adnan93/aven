@@ -1,9 +1,13 @@
 <template>
   <v-app class="home" style="font-family: IRYekan">
     <b-row dir="rtl">
-      <b-navbar toggleable="lg" type="dark" variant="dark">
-        <div>
-          <!-- Just an image -->
+      <b-navbar
+        toggleable="lg"
+        type="dark"
+        variant="dark"
+        style="background-color: #f0f0f5"
+      >
+        <!-- <div>
           <b-navbar variant="faded" type="light">
             <b-navbar-brand class="mr-15" href="/">
               <img
@@ -15,13 +19,11 @@
               />
             </b-navbar-brand>
           </b-navbar>
-        </div>
+        </div> -->
         <b-navbar-brand>
-          <router-link to="/"> آوین سرمایه گستر 
-          <b> 
-          زمرد
-          </b>
-          
+          <router-link to="/">
+            آوین سرمایه گستر
+            <b> زمرد </b>
           </router-link>
         </b-navbar-brand>
 
@@ -61,15 +63,15 @@
           dir="rtl"
           id="modal-center"
           title=" خروج"
-          :header-bg-variant="headerBgVariant"
           :header-text-variant="headerTextVariant"
+          :header-bg-variant="headerBgVariant"
         >
           <h3>آیا از خروج مطمئن هستید ؟</h3>
           <template #modal-footer>
             <div class="w-100">
               <v-btn
-                class="select2"
-                color="#bea44d"
+                class="ml-1"
+                color="#10503B"
                 elevation="3"
                 rounded
                 larg
@@ -79,9 +81,10 @@
               </v-btn>
 
               <v-btn
-                class="btnsize"
-                color="#bea44d"
-                elevation="5"
+                class="mr-2"
+                color="#10503B"
+                style="color: #ffffff"
+                elevation="3"
                 rounded
                 large
                 @click="logout()"
@@ -111,61 +114,30 @@
 
       <router-view class="home" />
 
-
-
-       <b-row class="footer" align="center">
+      <b-row class="footer" align="center">
         <hr />
 
         <b-col>
-          <div class="place container">
-          
-             <h5>  <b> لینک های مفید </b> </h5> 
-              <br />
-
-              <h6 class="place bedar" style="color:black;">
-                <a  href="https://ex.ebidar.com/v-533" style="color:black;">
-                  <li class="bedar">اقتصاد بیدار</li>
-                </a>
-              </h6>
-
-             
-
-              <h6>
-                <a style="color: black" href="https://t.me/tahlilonline_com">
-                  <li>تحلیل انلاین</li>
-                </a>
-              </h6>
-
-               <h6 class="ml-10">
-                <a style="color: black"> <li>طلاگرام</li> </a>
-              </h6>
-        
-          </div>
-        </b-col>
-
-        <b-col>
-          <div >
-
-            <h5 class="place "> <b> راه های ارتباطی </b> </h5>
+          <div>
+            <!-- <h5 class="place"><b> راه های ارتباطی </b></h5> -->
             <br />
-            <div > 
-            <h6 style="color: white;">شیراز، بلوار شهید رجائی (فرهنگ شهر)، کوچه 30، ساختمان زمرد </h6>
+            <div>
+              <h6 style="color: white">
+                شیراز، بلوار شهید رجائی (فرهنگ شهر)، کوچه 30، ساختمان زمرد
+              </h6>
             </div>
 
-          <div class="place"> 
-            <h3>
-              <a href="tel:07136317299" style="color: red;"> 071-36317299 </a> 
-            </h3>
+            <div class="place">
+              <h3>
+                <a href="tel:07136317299" style="color: red"> 071-36317299 </a>
+              </h3>
             </div>
 
             <br />
           </div>
-          <div class="container">
-    
-          </div>
         </b-col>
         <hr />
-        <br>
+        <br />
 
         <h6>
           <v-icon style="font-size: 20px; color: white"> copyright </v-icon>
@@ -176,10 +148,6 @@
 
         <br />
       </b-row>
-      
-
-
-
     </b-row>
   </v-app>
 </template>
@@ -192,11 +160,13 @@ export default {
     return {
       token: localStorage.getItem("token"),
       show: true,
+      headerBgVariant: "#0f6b4d",
+
       //logout
       showCreateModal: false,
 
       //modal
-      headerBgVariant: "dark",
+
       headerTextVariant: "light",
 
       //snachbar
@@ -208,7 +178,6 @@ export default {
     // console.log("login..", this.token)
 
     this.showBtn();
-    
   },
   methods: {
     checkLogout() {
@@ -218,7 +187,6 @@ export default {
     showBtn() {
       //  console.log("token: ", this.token);
       if (this.token == null) {
-
         return false;
       } else {
         return true;
@@ -252,19 +220,13 @@ export default {
   font-family: "IRYekan";
   src: local("IRYekan"), url(./font/IRYekan.ttf) format("truetype");
 }
-.chart {
-  position: absolute;
-  width: 100%;
-  height: 300px;
-}
+
 .test {
   text-align: right !important;
   margin: 0 px;
   padding-bottom: 0% !important;
 }
-.test1 {
-  margin-bottom: 0% !important;
-}
+
 .hobabptn :hover {
   background-color: none !important;
 }
@@ -290,10 +252,7 @@ a {
 }
 
 .home {
-  // background-color: #ffffff80;
-
-  //  background-color:rgb(240, 232, 232);
-  background-color: rgb(243, 240, 213);
+  background-color: #e8ede7;
 }
 
 .bg {
@@ -301,6 +260,13 @@ a {
 }
 
 .footer {
-  background-color: #b1b19f;
+  background-color: #10503b;
+}
+
+.navbar.navbar-dark.bg-dark {
+  background-color: #10503b !important;
+}
+.modal-header {
+  background-color: #10503b !important;
 }
 </style>
