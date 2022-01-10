@@ -224,7 +224,7 @@ export default {
       this.signUpLoading = true;
 
       await axios
-        .post(`http://localhost:8080/api/Customer/ForgotPassword`, this.form)
+        .post(`http://95.217.131.10:9090/api/Customer/ForgotPassword`, this.form)
         .then((response) => {
 
           this.text = response.data.Description;
@@ -251,7 +251,7 @@ export default {
       await axios
 
         .post(
-          `http://localhost:8080/api/Customer/SendVerificationCode?PhoneNumber=${this.PhoneNumber}`
+          `http://95.217.131.10:9090/api/Customer/SendVerificationCode?PhoneNumber=${this.PhoneNumber}`
         )
 
         .then((response) => {

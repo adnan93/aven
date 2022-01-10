@@ -134,7 +134,8 @@
                   <v-btn
                     :loading="editLoading"
                     class="btnsize"
-                    color="#bea44d"
+                   style="color:white" 
+                    color="#10503B"
                     elevation="5"
                     rounded
                     larg
@@ -153,7 +154,7 @@
 
                   <v-btn
                     class="select2"
-                    color="#bea44d"
+                    color="#10503B"
                     elevation="3"
                     rounded
                     larg
@@ -189,7 +190,8 @@
                   <v-btn
                     :loading="deleteLoading"
                     class="btnsize"
-                    color="#bea44d"
+                    color="#10503b"
+                    style="color:white"
                     elevation="5"
                     rounded
                     larg
@@ -199,7 +201,7 @@
 
                   <v-btn
                     class="select2"
-                    color="#bea44d"
+                    color="#10503b"
                     elevation="3"
                     rounded
                     larg
@@ -232,13 +234,13 @@
               <template #cell(actions)="row">
                 <v-icon
                   @click="editRow(row)"
-                  style="font-size: 20px; color: blue"
+                  style="font-size: 20px; color: #10503b"
                   >edit</v-icon
                 >
 
                 <v-icon
                   @click="deletRow(row)"
-                  style="font-size: 20px; color: red"
+                  style="font-size: 20px; color: #f7b73a"
                   >delete_outline</v-icon
                 >
               </template>
@@ -355,7 +357,7 @@ export default {
       //modal
       showEditModal: false,
       showDeleteModal: false,
-      headerBgVariant: "dark",
+      headerBgVariant: "#0f6b4d",
       headerTextVariant: "light",
 
       //table
@@ -474,7 +476,7 @@ export default {
       this.signUpLoading = true;
 
       await axios
-        .post(`http://localhost:8080/api/User/CreateNewUser`, this.form)
+        .post(`http://95.217.131.10:9090/api/User/CreateNewUser`, this.form)
         .then((response) => {
           this.text = response.data.Description;
 
@@ -520,7 +522,7 @@ export default {
       this.editLoading = true;
 
       await axios
-        .post(`http://localhost:8080/api/User/Update`, this.editForm, {
+        .post(`http://95.217.131.10:9090/api/User/Update`, this.editForm, {
           headers: {
             token: localStorage.getItem("token"),
           },
@@ -544,7 +546,7 @@ export default {
         });
 
       await axios
-        .get(`http://localhost:8080/api/User/GetAllUsers`, {
+        .get(`http://95.217.131.10:9090/api/User/GetAllUsers`, {
           headers: {
             token: localStorage.getItem("token"),
           },
@@ -583,7 +585,7 @@ export default {
       console.log("ID :", deletedId);
 
       await axios
-        .post(`http://localhost:8080/api/User/Delete/${deletedId}`, deletedId, {
+        .post(`http://95.217.131.10:9090/api/User/Delete/${deletedId}`, deletedId, {
           headers: {
             token: localStorage.getItem("token"),
           },
@@ -606,7 +608,7 @@ export default {
         });
 
       await axios
-        .get(`http://localhost:8080/api/User/GetAllUsers`, {
+        .get(`http://95.217.131.10:9090/api/User/GetAllUsers`, {
           headers: {
             token: localStorage.getItem("token"),
           },
@@ -630,7 +632,7 @@ export default {
     this.IsAdmin = await this.getIsAdmin;
 
     await axios
-      .get(`http://localhost:8080/api/User/GetAllUsers`, {
+      .get(`http://95.217.131.10:9090/api/User/GetAllUsers`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -649,4 +651,8 @@ export default {
 </script>
 
 <style>
+
+.modal-header {
+  background-color: #10503b;
+}
 </style>

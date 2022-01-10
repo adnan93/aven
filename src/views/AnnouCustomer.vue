@@ -317,7 +317,7 @@
               <template #cell(actions)="row">
                 <v-icon
                   @click="downloadRow(row)"
-                  style="font-size: 20px;  color:#10503B"
+                  style="font-size: 20px;  color:#90c445"
                   >download</v-icon
                 >
               </template>
@@ -479,7 +479,7 @@ export default {
       console.log(row.item.PdfFile);
 
       let response = await axios.get(
-        `http://localhost:8080/api/Announce/GetPdfFile/${row.item.PdfFile}`,
+        `http://95.217.131.10:9090/api/Announce/GetPdfFile/${row.item.PdfFile}`,
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -493,7 +493,7 @@ export default {
     async showAll() {
       this.showSearch = false;
 
-      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -525,7 +525,7 @@ export default {
       console.log("search:", this.searchForm);
       this.showSearchScore = true;
       let res = await axios.post(
-        `http://localhost:8080/api/Announce/GetByDateAndType/`,
+        `http://95.217.131.10:9090/api/Announce/GetByDateAndType/`,
         this.searchForm,
         {
           headers: {
@@ -590,7 +590,7 @@ export default {
       this.createLoading = true;
 
       let response = await axios.post(
-        `http://localhost:8080/api/Announce/Create`,
+        `http://95.217.131.10:9090/api/Announce/Create`,
         this.createForm,
         {
           headers: {
@@ -599,7 +599,7 @@ export default {
         }
       );
 
-      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -676,7 +676,7 @@ export default {
       this.editLoading = true;
 
       await axios.post(
-        `http://localhost:8080/api/Announce/Update`,
+        `http://95.217.131.10:9090/api/Announce/Update`,
         this.editForm,
         {
           headers: {
@@ -685,7 +685,7 @@ export default {
         }
       );
 
-      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -734,7 +734,7 @@ export default {
       console.log("ID :", deletedId);
 
       let response = await axios.post(
-        `http://localhost:8080/api/Announce/Delete/${deletedId}`,
+        `http://95.217.131.10:9090/api/Announce/Delete/${deletedId}`,
         this.createForm,
         {
           headers: {
@@ -753,7 +753,7 @@ export default {
 
       this.snackbarGreen = true;
 
-      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -787,7 +787,7 @@ export default {
 
     this.IsAdmin = await this.getIsAdmin;
 
-    let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+    let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
       headers: {
         token: localStorage.getItem("token"),
       },

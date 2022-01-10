@@ -57,8 +57,8 @@
 
                   <v-btn
                     class="btnsize ml-1"
-                    style="color: #10503b"
-                    color="white"
+                    style="color: #ffffff"
+                    color="#10503b"
                     elevation="5"
                     rounded
                     @click="doSearch"
@@ -78,8 +78,9 @@
                     elevation="3"
                     style="color: #10503b"
                     rounded
-                    color="white"
+                    color="#10503b"
                     @click="showAll"
+                    outlined
                   >
                     مشاهده همه
                   </v-btn>
@@ -269,7 +270,7 @@
                 <div class="w-100">
                   <v-btn
                     :loading="createLoading"
-                    style="color:#ffffff"
+                    style="color: #ffffff"
                     class="btnsize"
                     color="#0f6b4d"
                     elevation="5"
@@ -354,8 +355,9 @@
                   <v-btn
                     :loading="editLoading"
                     class="btnsize"
-                    color="#bea44d"
+                    color="#10503B"
                     elevation="5"
+                    style="color:white"
                     rounded
                     larg
                     @click="updateScorebtn"
@@ -364,7 +366,7 @@
 
                   <v-btn
                     class="select2"
-                    color="#bea44d"
+                    color="#10503B"
                     elevation="3"
                     rounded
                     larg
@@ -400,7 +402,8 @@
                   <v-btn
                     :loading="deleteLoading"
                     class="btnsize"
-                    color="#bea44d"
+                    style="color:white" 
+                    color="#10503B"
                     elevation="5"
                     rounded
                     larg
@@ -410,7 +413,7 @@
 
                   <v-btn
                     class="select2"
-                    color="#bea44d"
+                    color="#10503B"
                     elevation="3"
                     rounded
                     larg
@@ -443,7 +446,7 @@
               <template #cell(actions)="row">
                 <v-icon
                   @click="editRow(row)"
-                  style="font-size: 20px; color: blue"
+                  style="font-size: 20px; color: #10503B"
                   >edit</v-icon
                 >
 
@@ -455,7 +458,7 @@
 
                 <v-icon
                   @click="downloadRow(row)"
-                  style="font-size: 20px; color: #0f6b4d"
+                  style="font-size: 20px; color: #90c445"
                   >download</v-icon
                 >
               </template>
@@ -595,7 +598,7 @@ export default {
       showCreateModal: false,
       showEditModal: false,
       showDeleteModal: false,
-      headerBgVariant:  '#0f6b4d',
+      headerBgVariant: "#0f6b4d",
       headerTextVariant: "light",
 
       //table
@@ -617,7 +620,7 @@ export default {
 
     async downloadRow(row) {
       let response = await axios.get(
-        `http://localhost:8080/api/Announce/GetPdfFile/${row.item.PdfFile}`,
+        `http://95.217.131.10:9090/api/Announce/GetPdfFile/${row.item.PdfFile}`,
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -631,7 +634,7 @@ export default {
     async showAll() {
       this.showSearch = false;
 
-      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -663,7 +666,7 @@ export default {
       console.log("search:", this.searchForm);
       this.showSearchScore = true;
       let res = await axios.post(
-        `http://localhost:8080/api/Announce/GetByDateAndType/`,
+        `http://95.217.131.10:9090/api/Announce/GetByDateAndType/`,
         this.searchForm,
         {
           headers: {
@@ -728,7 +731,7 @@ export default {
       this.createLoading = true;
 
       let response = await axios.post(
-        `http://localhost:8080/api/Announce/Create`,
+        `http://95.217.131.10:9090/api/Announce/Create`,
         this.createForm,
         {
           headers: {
@@ -737,7 +740,7 @@ export default {
         }
       );
 
-      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -814,7 +817,7 @@ export default {
       this.editLoading = true;
 
       let response = await axios.post(
-        `http://localhost:8080/api/Announce/Update`,
+        `http://95.217.131.10:9090/api/Announce/Update`,
         this.editForm,
         {
           headers: {
@@ -835,7 +838,7 @@ export default {
 
       console.log(response);
 
-      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -892,7 +895,7 @@ export default {
       console.log("ID :", deletedId);
 
       let response = await axios.post(
-        `http://localhost:8080/api/Announce/Delete/${deletedId}`,
+        `http://95.217.131.10:9090/api/Announce/Delete/${deletedId}`,
         this.createForm,
         {
           headers: {
@@ -911,7 +914,7 @@ export default {
 
       this.snackbarGreen = true;
 
-      let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -945,7 +948,7 @@ export default {
 
     (this.customerTableLoading = true), (this.IsAdmin = await this.getIsAdmin);
 
-    let rest = await axios.get(`http://localhost:8080/api/Announce/GetAll`, {
+    let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
       headers: {
         token: localStorage.getItem("token"),
       },
@@ -972,7 +975,7 @@ export default {
 </script>
 
 <style>
-.modal-header{
-  background-color: #10503B;;
+.modal-header {
+  background-color: #10503b;
 }
 </style>

@@ -96,7 +96,7 @@
         </b-modal>
       </div>
 
-      <v-snackbar v-model="snackbarGreen" color="green" dir="rtl">
+      <v-snackbar v-model="snackbarGreen" color="black" dir="rtl">
         {{ text }}
 
         <template v-slot:action="{ attrs }">
@@ -140,7 +140,7 @@
         <br />
 
         <h6>
-          <v-icon style="font-size: 20px; color: white"> copyright </v-icon>
+          <v-icon style="font-size: 20px; "> copyright </v-icon>
 
           کلیه حقوق متعلق به گروه مالی زمرد ‌می ‌باشد.
         </h6>
@@ -269,4 +269,9 @@ a {
 .modal-header {
   background-color: #10503b !important;
 }
+
+.footer {
+  background-color: #c8cfc7;
+}
+
 </style>
