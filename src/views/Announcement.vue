@@ -8,15 +8,26 @@
             <b>اطلاعیه های کاربران</b>
           </div></b-row
         >
+        <!-- 
+        <qr-code text="adnan13245" size="150">
+
+        </qr-code> 
+        
+        -->
 
         <b-row>
           <b-container style="padding-left: 5%" fluid>
             <b-row>
               <b-col cols="12" md="4" class="d-flex mb-3">
-                <div class="container">
+                <div           direction= "rtl"  class="container">
                   <v-select
+                  text-align-last= "right"
+                  direction= "rtl"
+           
+                  lang="fa"
                     class="select"
                     dir="rtl"
+                    align="right"
                     :items="AnnouncesSearch"
                     :item-text="'Name'"
                     :item-value="'Value'"
@@ -28,6 +39,7 @@
                     outlined
                     dense
                     color="#10503B"
+                    auto
                   >
                   </v-select>
 
@@ -357,7 +369,7 @@
                     class="btnsize"
                     color="#10503B"
                     elevation="5"
-                    style="color:white"
+                    style="color: white"
                     rounded
                     larg
                     @click="updateScorebtn"
@@ -402,7 +414,7 @@
                   <v-btn
                     :loading="deleteLoading"
                     class="btnsize"
-                    style="color:white" 
+                    style="color: white"
                     color="#10503B"
                     elevation="5"
                     rounded
@@ -446,7 +458,7 @@
               <template #cell(actions)="row">
                 <v-icon
                   @click="editRow(row)"
-                  style="font-size: 20px; color: #10503B"
+                  style="font-size: 20px; color: #10503b"
                   >edit</v-icon
                 >
 
@@ -505,6 +517,10 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
+
+import Vue from "vue";
+import VueQRCodeComponent from "vue-qr-generator";
+Vue.component("qr-code", VueQRCodeComponent);
 
 export default {
   name: "Score",
@@ -634,11 +650,14 @@ export default {
     async showAll() {
       this.showSearch = false;
 
-      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      let rest = await axios.get(
+        `http://95.217.131.10:9090/api/Announce/GetAll`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       this.AllAnnounces = rest.data;
       for (let item of this.AllAnnounces) {
@@ -740,11 +759,14 @@ export default {
         }
       );
 
-      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      let rest = await axios.get(
+        `http://95.217.131.10:9090/api/Announce/GetAll`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       for (let item of rest.data) {
         if (item.Type == 0) {
@@ -838,11 +860,14 @@ export default {
 
       console.log(response);
 
-      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      let rest = await axios.get(
+        `http://95.217.131.10:9090/api/Announce/GetAll`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       this.AllAnnounces = rest.data;
       for (let item of this.AllAnnounces) {
@@ -914,11 +939,14 @@ export default {
 
       this.snackbarGreen = true;
 
-      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      let rest = await axios.get(
+        `http://95.217.131.10:9090/api/Announce/GetAll`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       this.AllAnnounces = rest.data;
       for (let item of this.AllAnnounces) {
@@ -948,11 +976,14 @@ export default {
 
     (this.customerTableLoading = true), (this.IsAdmin = await this.getIsAdmin);
 
-    let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-      headers: {
-        token: localStorage.getItem("token"),
-      },
-    });
+    let rest = await axios.get(
+      `http://95.217.131.10:9090/api/Announce/GetAll`,
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      }
+    );
 
     this.AllAnnounces = rest.data;
     for (let item of this.AllAnnounces) {

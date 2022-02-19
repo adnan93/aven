@@ -317,7 +317,7 @@
               <template #cell(actions)="row">
                 <v-icon
                   @click="downloadRow(row)"
-                  style="font-size: 20px;  color:#90c445"
+                  style="font-size: 20px; color: #90c445"
                   >download</v-icon
                 >
               </template>
@@ -333,10 +333,8 @@
       </b-col>
 
       <b-col cols="1"> </b-col>
-
-    
     </b-row>
-   
+
     <v-snackbar v-model="snackbarGreen" :color="snackColor" dir="rtl">
       {{ text }}
 
@@ -353,14 +351,16 @@
       </template>
     </v-snackbar>
 
-       <br>     <br>
-    <br>    <br>     <br>
-    <br>
-  <br>     <br>   <br> <br>
-    
-
-    
-
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
@@ -493,11 +493,14 @@ export default {
     async showAll() {
       this.showSearch = false;
 
-      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      let rest = await axios.get(
+        `http://95.217.131.10:9090/api/Announce/GetAll`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       this.AllAnnounces = rest.data;
       for (let item of this.AllAnnounces) {
@@ -599,11 +602,14 @@ export default {
         }
       );
 
-      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      let rest = await axios.get(
+        `http://95.217.131.10:9090/api/Announce/GetAll`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       for (let item of rest.data) {
         if (item.Type == 0) {
@@ -685,11 +691,14 @@ export default {
         }
       );
 
-      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      let rest = await axios.get(
+        `http://95.217.131.10:9090/api/Announce/GetAll`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       this.AllAnnounces = rest.data;
       for (let item of this.AllAnnounces) {
@@ -753,11 +762,14 @@ export default {
 
       this.snackbarGreen = true;
 
-      let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
+      let rest = await axios.get(
+        `http://95.217.131.10:9090/api/Announce/GetAll`,
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
+      );
 
       this.AllAnnounces = rest.data;
       for (let item of this.AllAnnounces) {
@@ -787,11 +799,14 @@ export default {
 
     this.IsAdmin = await this.getIsAdmin;
 
-    let rest = await axios.get(`http://95.217.131.10:9090/api/Announce/GetAll`, {
-      headers: {
-        token: localStorage.getItem("token"),
-      },
-    });
+    let rest = await axios.get(
+      `http://95.217.131.10:9090/api/Announce/GetAll`,
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      }
+    );
 
     this.AllAnnounces = rest.data;
     for (let item of this.AllAnnounces) {
@@ -814,7 +829,7 @@ export default {
 </script>
 
 <style>
-.modal-header{
-  background-color: #10503B;;
+.modal-header {
+  background-color: #10503b;
 }
 </style>
