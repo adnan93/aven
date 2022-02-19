@@ -278,7 +278,8 @@ export default {
       this.signUpLoading = true;
 
       await axios
-        .post(`http://95.217.131.10:9090/api/User/CreateNewUser`, this.form, {
+       // .post(`http://95.217.131.10:9090/api/User/CreateNewUser`, this.form, {
+          .post(`http://${this.paseUrl}/api/User/CreateNewUser`, this.form, {
           headers: {
             token: localStorage.getItem("token"),
           },

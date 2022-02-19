@@ -367,6 +367,8 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
+import config from "@/config";
+
 
 export default {
   name: "Score",
@@ -375,6 +377,9 @@ export default {
 
   data() {
     return {
+       paseUrl: `${config.paseUrl}`,
+
+
       //search
       searchForm: {
         Type: "",
@@ -479,7 +484,9 @@ export default {
       console.log(row.item.PdfFile);
 
       let response = await axios.get(
-        `http://95.217.131.10:9090/api/Announce/GetPdfFile/${row.item.PdfFile}`,
+    //    `http://95.217.131.10:9090/api/Announce/GetPdfFile/${row.item.PdfFile}`,
+          `http://${this.paseUrl}/api/Announce/GetPdfFile/${row.item.PdfFile}`,
+
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -494,7 +501,8 @@ export default {
       this.showSearch = false;
 
       let rest = await axios.get(
-        `http://95.217.131.10:9090/api/Announce/GetAll`,
+        //`http://95.217.131.10:9090/api/Announce/GetAll`,
+        `http://${this.paseUrl}/api/Announce/GetAll`,
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -528,7 +536,8 @@ export default {
       console.log("search:", this.searchForm);
       this.showSearchScore = true;
       let res = await axios.post(
-        `http://95.217.131.10:9090/api/Announce/GetByDateAndType/`,
+      //  `http://95.217.131.10:9090/api/Announce/GetByDateAndType/`,
+      `http://${this.paseUrl}/api/Announce/GetByDateAndType/`,
         this.searchForm,
         {
           headers: {
@@ -593,7 +602,8 @@ export default {
       this.createLoading = true;
 
       let response = await axios.post(
-        `http://95.217.131.10:9090/api/Announce/Create`,
+    //    `http://95.217.131.10:9090/api/Announce/Create`,
+        `http://${this.paseUrl}/api/Announce/Create`,
         this.createForm,
         {
           headers: {
@@ -603,7 +613,8 @@ export default {
       );
 
       let rest = await axios.get(
-        `http://95.217.131.10:9090/api/Announce/GetAll`,
+      //  `http://95.217.131.10:9090/api/Announce/GetAll`,
+        `http://${this.paseUrl}/api/Announce/GetAll`,
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -682,7 +693,8 @@ export default {
       this.editLoading = true;
 
       await axios.post(
-        `http://95.217.131.10:9090/api/Announce/Update`,
+       // `http://95.217.131.10:9090/api/Announce/Update`,
+      `http://${this.paseUrl}/api/Announce/Update`,
         this.editForm,
         {
           headers: {
@@ -692,7 +704,8 @@ export default {
       );
 
       let rest = await axios.get(
-        `http://95.217.131.10:9090/api/Announce/GetAll`,
+    //    `http://95.217.131.10:9090/api/Announce/GetAll`,
+    `http://${this.paseUrl}/api/Announce/GetAll`,
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -743,7 +756,11 @@ export default {
       console.log("ID :", deletedId);
 
       let response = await axios.post(
-        `http://95.217.131.10:9090/api/Announce/Delete/${deletedId}`,
+    //    `http://95.217.131.10:9090/api/Announce/Delete/${deletedId}`,
+         `http://${this.paseUrl}/api/Announce/Delete/${deletedId}`,
+
+             
+
         this.createForm,
         {
           headers: {
@@ -763,7 +780,10 @@ export default {
       this.snackbarGreen = true;
 
       let rest = await axios.get(
-        `http://95.217.131.10:9090/api/Announce/GetAll`,
+     //   `http://95.217.131.10:9090/api/Announce/GetAll`,
+         `http://${this.paseUrl}/api/Announce/GetAll`,
+
+
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -800,7 +820,10 @@ export default {
     this.IsAdmin = await this.getIsAdmin;
 
     let rest = await axios.get(
-      `http://95.217.131.10:9090/api/Announce/GetAll`,
+     
+
+     // `http://95.217.131.10:9090/api/Announce/GetAll`,
+      `http://${this.paseUrl}/api/Announce/GetAll`,
       {
         headers: {
           token: localStorage.getItem("token"),

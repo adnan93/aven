@@ -476,7 +476,8 @@ export default {
       this.signUpLoading = true;
 
       await axios
-        .post(`http://95.217.131.10:9090/api/User/CreateNewUser`, this.form)
+    //    .post(`http://95.217.131.10:9090/api/User/CreateNewUser`, this.form)
+        .post(`http://${this.paseUrl}/api/User/CreateNewUser`, this.form)
         .then((response) => {
           this.text = response.data.Description;
 
@@ -522,7 +523,8 @@ export default {
       this.editLoading = true;
 
       await axios
-        .post(`http://95.217.131.10:9090/api/User/Update`, this.editForm, {
+      //  .post(`http://95.217.131.10:9090/api/User/Update`, this.editForm, {
+         .post(`http://${this.paseUrl}/api/User/Update`, this.editForm, {
           headers: {
             token: localStorage.getItem("token"),
           },
@@ -546,7 +548,8 @@ export default {
         });
 
       await axios
-        .get(`http://95.217.131.10:9090/api/User/GetAllUsers`, {
+      //  .get(`http://95.217.131.10:9090/api/User/GetAllUsers`, {
+         .get(`http://${this.paseUrl}/api/User/GetAllUsers`, {
           headers: {
             token: localStorage.getItem("token"),
           },
@@ -585,7 +588,8 @@ export default {
       console.log("ID :", deletedId);
 
       await axios
-        .post(`http://95.217.131.10:9090/api/User/Delete/${deletedId}`, deletedId, {
+      //  .post(`http://95.217.131.10:9090/api/User/Delete/${deletedId}`, deletedId, {
+         .post(`http://${this.paseUrl}/api/User/Delete/${deletedId}`, deletedId, {
           headers: {
             token: localStorage.getItem("token"),
           },
@@ -608,7 +612,8 @@ export default {
         });
 
       await axios
-        .get(`http://95.217.131.10:9090/api/User/GetAllUsers`, {
+     //   .get(`http://95.217.131.10:9090/api/User/GetAllUsers`, {
+        .get(`http://${this.paseUrl}/api/User/GetAllUsers`, {
           headers: {
             token: localStorage.getItem("token"),
           },
@@ -632,7 +637,8 @@ export default {
     this.IsAdmin = await this.getIsAdmin;
 
     await axios
-      .get(`http://95.217.131.10:9090/api/User/GetAllUsers`, {
+    //  .get(`http://95.217.131.10:9090/api/User/GetAllUsers`, {
+       .get(`http://${this.paseUrl}/api/User/GetAllUsers`, {
         headers: {
           token: localStorage.getItem("token"),
         },

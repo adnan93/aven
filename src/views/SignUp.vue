@@ -238,7 +238,8 @@ export default {
       this.signUpLoading = true;
 
       await axios
-        .post(`http://95.217.131.10:9090/api/Customer/Register`, this.form)
+       // .post(`http://95.217.131.10:9090/api/Customer/Register`, this.form)
+       .post(`http://${this.paseUrl}/api/Customer/Register`, this.form)
         .then((response) => {
           this.text = response.data.Description;
 
