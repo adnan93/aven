@@ -286,6 +286,8 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
+import config from "@/config";
+
 
 export default {
   name: "Score",
@@ -295,6 +297,8 @@ export default {
   data() {
     return {
       //customers table
+       paseUrl: `${config.paseUrl}`,
+
       AllCustomsers: [], //checkAdmin
       show4: "",
       customerTableLoading: false,

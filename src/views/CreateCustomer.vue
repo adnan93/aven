@@ -185,10 +185,14 @@
 
 <script>
 import axios from "axios";
+import config from "@/config";
+
 
 export default {
   data() {
     return {
+                   paseUrl: `${config.paseUrl}`,
+
       loadingSubmitbtn:false,
       snackbarGreen:false,
       snackColor: "",
