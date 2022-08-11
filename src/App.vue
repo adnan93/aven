@@ -21,10 +21,8 @@
           </b-navbar>
         </div> -->
         <b-navbar-brand>
-          <router-link to="/">
-            آوین سرمایه گستر
-            <b> زمرد </b>
-          </router-link>
+          آوین سرمایه گستر
+          <b> زمرد </b>
         </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -54,6 +52,9 @@
             </b-nav-item> -->
           </b-navbar-nav>
         </b-collapse>
+
+
+        
       </b-navbar>
 
       <!-- add new -->
@@ -140,7 +141,7 @@
         <br />
 
         <h6>
-          <v-icon style="font-size: 20px; "> copyright </v-icon>
+          <v-icon style="font-size: 20px"> copyright </v-icon>
 
           کلیه حقوق متعلق به گروه مالی زمرد ‌می ‌باشد.
         </h6>
@@ -273,5 +274,4 @@ a {
 .footer {
   background-color: #c8cfc7;
 }
-
 </style>

@@ -40,6 +40,7 @@
                     dense
                     color="#10503B"
                     auto
+                     :menu-props="{ contentClass: 'three-dropdown' }"
                   >
                   </v-select>
 
@@ -1024,5 +1025,8 @@ export default {
 <style>
 .modal-header {
   background-color: #10503b;
+}
+.three-dropdown .v-list {
+  text-align: right;
 }
 </style>
