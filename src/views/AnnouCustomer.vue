@@ -404,7 +404,7 @@ export default {
 
       Announces: [
         { Name: "صورت مالی", Value: 0 },
-        { Name: "گزارش ماهانه پرنفوی", Value: 1 },
+        { Name: "گزارش ماهانه پرتفوی", Value: 1 },
         { Name: "تصمیمات و دعوت به مجامع", Value: 2 },
         { Name: "افشای اطلاعات با اهمیت", Value: 3 },
         { Name: "آگهی های ثبتی", Value: 4 },
@@ -412,7 +412,7 @@ export default {
 
       AnnouncesSearch: [
         { Name: "صورت مالی", Value: "0" },
-        { Name: "گزارش ماهانه پرنفوی", Value: "1" },
+        { Name: "گزارش ماهانه پرتفوی", Value: "1" },
         { Name: "تصمیمات و دعوت به مجامع", Value: "2" },
         { Name: "افشای اطلاعات با اهمیت", Value: "3" },
         { Name: "آگهی های ثبتی", Value: 4 },
@@ -515,7 +515,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -550,7 +550,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -626,7 +626,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -671,7 +671,7 @@ export default {
 
       if (row.item.Type == "صورت مالی") {
         this.editForm.Type = 0;
-      } else if (row.item.Type == "گزارش ماهانه پرنفوی") {
+      } else if (row.item.Type == "گزارش ماهانه پرتفوی") {
         this.editForm.Type = 1;
       } else if (row.item.Type == "تصمیمات و دعوت به مجامع") {
         this.editForm.Type = 2;
@@ -718,7 +718,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -796,7 +796,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -836,7 +836,7 @@ export default {
       if (item.Type == 0) {
         item.Type = "صورت مالی";
       } else if (item.Type == 1) {
-        item.Type = "گزارش ماهانه پرنفوی";
+        item.Type = "گزارش ماهانه پرتفوی";
       } else if (item.Type == 2) {
         item.Type = "تصمیمات و دعوت به مجامع";
       } else if (item.Type == 3) {

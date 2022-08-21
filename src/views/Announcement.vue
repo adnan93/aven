@@ -19,12 +19,11 @@
           <b-container style="padding-left: 5%" fluid>
             <b-row>
               <b-col cols="12" md="4" class="d-flex mb-3">
-                <div           direction= "rtl"  class="container">
+                <div direction="rtl" class="container">
                   <v-select
-                  text-align-last= "right"
-                  direction= "rtl"
-           
-                  lang="fa"
+                    text-align-last="right"
+                    direction="rtl"
+                    lang="fa"
                     class="select"
                     dir="rtl"
                     align="right"
@@ -40,7 +39,7 @@
                     dense
                     color="#10503B"
                     auto
-                     :menu-props="{ contentClass: 'three-dropdown' }"
+                    :menu-props="{ contentClass: 'three-dropdown' }"
                   >
                   </v-select>
 
@@ -468,12 +467,19 @@
                   style="font-size: 20px; color: #f7b73a"
                   >delete_outline</v-icon
                 >
+                <!-- <v-btn
+                  small
+                  :href="`http://${paseUrl}/api/Announce/GetPdfFile/${download}`"
+                >
+                  دانلود
+                </v-btn> -->
 
                 <v-icon
                   @click="downloadRow(row)"
+                   :href="`http://${paseUrl}/api/Announce/GetPdfFile/${download}`"
                   style="font-size: 20px; color: #90c445"
-                  >download</v-icon
-                >
+                  >download
+                </v-icon>
               </template>
 
               <template #cell(Persian)="row">
@@ -520,7 +526,6 @@ import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
 import config from "@/config";
 
-
 import Vue from "vue";
 import VueQRCodeComponent from "vue-qr-generator";
 Vue.component("qr-code", VueQRCodeComponent);
@@ -532,7 +537,7 @@ export default {
 
   data() {
     return {
-             paseUrl: `${config.paseUrl}`,
+      paseUrl: `${config.paseUrl}`,
 
       //search
       searchForm: {
@@ -561,7 +566,7 @@ export default {
 
       Announces: [
         { Name: "صورت مالی", Value: 0 },
-        { Name: "گزارش ماهانه پرنفوی", Value: 1 },
+        { Name: "گزارش ماهانه پرتفوی", Value: 1 },
         { Name: "تصمیمات و دعوت به مجامع", Value: 2 },
         { Name: "افشای اطلاعات با اهمیت", Value: 3 },
         { Name: "آگهی های ثبتی", Value: 4 },
@@ -569,7 +574,7 @@ export default {
 
       AnnouncesSearch: [
         { Name: "صورت مالی", Value: "0" },
-        { Name: "گزارش ماهانه پرنفوی", Value: "1" },
+        { Name: "گزارش ماهانه پرتفوی", Value: "1" },
         { Name: "تصمیمات و دعوت به مجامع", Value: "2" },
         { Name: "افشای اطلاعات با اهمیت", Value: "3" },
         { Name: "آگهی های ثبتی", Value: 4 },
@@ -631,6 +636,7 @@ export default {
 
         { actions: "عملیات" },
       ],
+      download: "",
 
       items: [],
     };
@@ -640,9 +646,10 @@ export default {
     ...mapActions(["CustomerLogIn"]),
 
     async downloadRow(row) {
+      this.download = row.item.PdfFile;
       let response = await axios.get(
-       // `http://95.217.131.10:9090/api/Announce/GetPdfFile/${row.item.PdfFile}`,   
-       `http://${this.paseUrl}/api/Announce/GetPdfFile/${row.item.PdfFile}`,        
+        // `http://95.217.131.10:9090/api/Announce/GetPdfFile/${row.item.PdfFile}`,
+        `http://${this.paseUrl}/api/Announce/GetPdfFile/${this.download}`,
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -657,7 +664,7 @@ export default {
       this.showSearch = false;
 
       let rest = await axios.get(
-       // `http://95.217.131.10:9090/api/Announce/GetAll`,
+        // `http://95.217.131.10:9090/api/Announce/GetAll`,
         `http://${this.paseUrl}/api/Announce/GetAll`,
         {
           headers: {
@@ -671,7 +678,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -692,7 +699,7 @@ export default {
       console.log("search:", this.searchForm);
       this.showSearchScore = true;
       let res = await axios.post(
-      //  `http://95.217.131.10:9090/api/Announce/GetByDateAndType/`,
+        //  `http://95.217.131.10:9090/api/Announce/GetByDateAndType/`,
         `http://${this.paseUrl}/api/Announce/GetByDateAndType/`,
         this.searchForm,
         {
@@ -706,7 +713,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -758,8 +765,8 @@ export default {
       this.createLoading = true;
 
       let response = await axios.post(
-       // `http://95.217.131.10:9090/api/Announce/Create`,
-         `http://${this.paseUrl}/api/Announce/Create`,
+        // `http://95.217.131.10:9090/api/Announce/Create`,
+        `http://${this.paseUrl}/api/Announce/Create`,
 
         this.createForm,
         {
@@ -770,8 +777,8 @@ export default {
       );
 
       let rest = await axios.get(
-     //   `http://95.217.131.10:9090/api/Announce/GetAll`,
-                `http://${this.paseUrl}/api/Announce/GetAll`,
+        //   `http://95.217.131.10:9090/api/Announce/GetAll`,
+        `http://${this.paseUrl}/api/Announce/GetAll`,
         {
           headers: {
             token: localStorage.getItem("token"),
@@ -783,7 +790,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -828,7 +835,7 @@ export default {
 
       if (row.item.Type == "صورت مالی") {
         this.editForm.Type = 0;
-      } else if (row.item.Type == "گزارش ماهانه پرنفوی") {
+      } else if (row.item.Type == "گزارش ماهانه پرتفوی") {
         this.editForm.Type = 1;
       } else if (row.item.Type == "تصمیمات و دعوت به مجامع") {
         this.editForm.Type = 2;
@@ -850,8 +857,8 @@ export default {
       this.editLoading = true;
 
       let response = await axios.post(
-    //    `http://95.217.131.10:9090/api/Announce/Update`,
-        `http://${this.paseUrl}/api/Announce/Update`,        
+        //    `http://95.217.131.10:9090/api/Announce/Update`,
+        `http://${this.paseUrl}/api/Announce/Update`,
         this.editForm,
         {
           headers: {
@@ -887,7 +894,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -933,7 +940,7 @@ export default {
       console.log("ID :", deletedId);
 
       let response = await axios.post(
-       // `http://95.217.131.10:9090/api/Announce/Delete/${deletedId}`,
+        // `http://95.217.131.10:9090/api/Announce/Delete/${deletedId}`,
         `http://${this.paseUrl}/api/Announce/Delete/${deletedId}`,
         this.createForm,
         {
@@ -954,7 +961,7 @@ export default {
       this.snackbarGreen = true;
 
       let rest = await axios.get(
-     //   `http://95.217.131.10:9090/api/Announce/GetAll`,
+        //   `http://95.217.131.10:9090/api/Announce/GetAll`,
         `http://${this.paseUrl}/api/Announce/GetAll`,
         {
           headers: {
@@ -968,7 +975,7 @@ export default {
         if (item.Type == 0) {
           item.Type = "صورت مالی";
         } else if (item.Type == 1) {
-          item.Type = "گزارش ماهانه پرنفوی";
+          item.Type = "گزارش ماهانه پرتفوی";
         } else if (item.Type == 2) {
           item.Type = "تصمیمات و دعوت به مجامع";
         } else if (item.Type == 3) {
@@ -984,17 +991,16 @@ export default {
     },
   },
   async created() {
-
-    if (!window.location.hash){
-      window.location = window.location +"#loaded";
+    if (!window.location.hash) {
+      window.location = window.location + "#loaded";
       window.location.reload();
     }
 
     (this.customerTableLoading = true), (this.IsAdmin = await this.getIsAdmin);
 
     let rest = await axios.get(
-    //  `http://95.217.131.10:9090/api/Announce/GetAll`,
-    `http://${this.paseUrl}/api/Announce/GetAll`,
+      //  `http://95.217.131.10:9090/api/Announce/GetAll`,
+      `http://${this.paseUrl}/api/Announce/GetAll`,
       {
         headers: {
           token: localStorage.getItem("token"),
@@ -1007,7 +1013,7 @@ export default {
       if (item.Type == 0) {
         item.Type = "صورت مالی";
       } else if (item.Type == 1) {
-        item.Type = "گزارش ماهانه پرنفوی";
+        item.Type = "گزارش ماهانه پرتفوی";
       } else if (item.Type == 2) {
         item.Type = "تصمیمات و دعوت به مجامع";
       } else if (item.Type == 3) {
